@@ -1,0 +1,163 @@
+<ion-icon
+  title="Añadir elemento"
+  class="hand"
+  style="font-size: 25px"
+  *ngIf="havePermision && !isEditing"
+  color="primary"
+  slot="icon-only"
+  name="add-circle"
+  (click)="alta()"
+></ion-icon>
+<ion-modal [isOpen]="isOpenModal" (willDismiss)="cancelar()">
+  <ng-template>
+    <ion-content class="ion-padding">
+      <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" *ngIf="isEditing">
+        <ion-list *ngIf="entityDescripcion">
+          <ion-item> </ion-item>
+          <ion-item *ngFor="let item of entityDescripcion">
+            <ng-container *ngIf="!item['hide']">
+              <ion-label position="stacked">{{ item["title"] }}</ion-label>
+              <ng-container [ngSwitch]="item['type']">
+                <ng-container *ngSwitchCase="'text'">
+                  <ion-input
+                    [attr.disabled]="item['disabled'] ? '' : null"
+                    type="text"
+                    placeholder="{{ item['title'] }}"
+                    formControlName="{{ item['name'] }}"
+                  ></ion-input>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'password'">
+                  <ion-input
+                    [attr.disabled]="item['disabled'] ? '' : null"
+                    type="password"
+                    placeholder="{{ item['title'] }}"
+                    formControlName="{{ item['name'] }}"
+                  ></ion-input>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'number'">
+                  <ion-input
+                    [attr.disabled]="item['disabled'] ? '' : null"
+                    type="number"
+                    placeholder="{{ item['title'] }}"
+                    formControlName="{{ item['name'] }}"
+                  ></ion-input>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'checkbox'">
+                  <ion-checkbox
+                    [attr.disabled]="item['disabled'] ? '' : null"
+                    formControlName="{{ item['name'] }}"
+                  ></ion-checkbox>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'select'">
+                  <ion-spinner
+                    *ngIf="item['isLoading']"
+                    name="dots"
+                  ></ion-spinner>
+
+                  <ion-select
+                    [disabled]="item['disabled']"
+                    *ngIf="objlstSelect[item['name']] && !item['isLoading']"
+                    name="'{{ item['name'] }}'"
+                    formControlName="{{ item['name'] }}"
+                    interface="popover"
+                    placeholder="Seleccione"
+                    (ionChange)="select_onChange(item['name'], $event)"
+                  >
+                    <ion-select-option
+                      *ngFor="let item of objlstSelect[item['name']]"
+                      [value]="item['id']"
+                      >{{ item["desc"] }}</ion-select-option
+                    >
+                  </ion-select>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'datetime'">
+                  <br />
+                  <ion-item>
+                    <ion-datetime-button
+                      datetime="datetime"
+                    ></ion-datetime-button>
+                    <ion-modal [keepContentsMounted]="true">
+                      <ng-template>
+                        <ion-datetime
+                          [attr.disabled]="item['disabled'] ? '' : null"
+                          [firstDayOfWeek]="1"
+                          formControlName="{{ item['name'] }}"
+                          locale="es-ES"
+                          id="datetime"
+                        ></ion-datetime>
+                      </ng-template>
+                    </ion-modal>
+                  </ion-item>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'date'">
+                  <br />
+                  <ion-item>
+                    <ion-datetime-button
+                      [attr.disabled]="item['disabled'] ? '' : null"
+                      datetime="datetime_{{ item['name'] }}"
+                    ></ion-datetime-button>
+                    <ion-modal [keepContentsMounted]="true">
+                      <ng-template>
+                        <ion-datetime
+                          [firstDayOfWeek]="1"
+                          id="datetime_{{ item['name'] }}"
+                          presentation="date"
+                          locale="es-ES"
+                          [preferWheel]="false"
+                          formControlName="{{ item['name'] }}"
+                        ></ion-datetime>
+                      </ng-template>
+                    </ion-modal>
+                  </ion-item>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'time'">
+                  <br />
+                  <ion-item>
+                    <ion-datetime-button
+                      datetime="datetime_{{ item['name'] }}"
+                    ></ion-datetime-button>
+                    <ion-modal [keepContentsMounted]="true">
+                      <ng-template>
+                        <ion-datetime
+                          [attr.disabled]="item['disabled'] ? '' : null"
+                          [firstDayOfWeek]="1"
+                          id="datetime_{{ item['name'] }}"
+                          presentation="time"
+                          locale="es-ES"
+                          [preferWheel]="false"
+                          formControlName="{{ item['name'] }}"
+                        ></ion-datetime>
+                      </ng-template>
+                    </ion-modal>
+                  </ion-item>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ion-item>
+
+          <ion-item>
+            <base-button-guardar
+              *ngIf="havePermision"
+              [isSaving]="isSaving"
+              [valid]="formGroup.valid"
+              (click)="onSubmit()"
+            ></base-button-guardar>
+            <base-button-borrar
+              *ngIf="havePermision && !isAlta"
+              [isDeleting]="isDeleting"
+              (click)="borrar()"
+            ></base-button-borrar>
+            <base-button-cancelar (click)="cancelar()"></base-button-cancelar>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>

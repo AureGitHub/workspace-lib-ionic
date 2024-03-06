@@ -1,0 +1,5 @@
+<ion-button color="danger"  [disabled]="isDeleting"  shape="round" size="small" >
+  <ion-icon  slot="start" name="close-circle" ></ion-icon>
+  <ion-spinner *ngIf="isDeleting"></ion-spinner>
+  <ion-label *ngIf="!isDeleting">Borrar</ion-label>        
+</ion-button>

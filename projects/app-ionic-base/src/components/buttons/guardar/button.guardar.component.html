@@ -1,0 +1,5 @@
+<ion-button color="success" [disabled]="isSaving || !valid"  shape="round" size="small" >
+  <ion-icon  slot="start" name="{{icon}}" ></ion-icon>
+  <ion-spinner *ngIf="isSaving"></ion-spinner>
+  <ion-label *ngIf="!isSaving">{{label}}</ion-label>        
+</ion-button>

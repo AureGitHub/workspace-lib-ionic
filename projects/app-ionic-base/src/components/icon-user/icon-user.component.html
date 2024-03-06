@@ -1,0 +1,60 @@
+<ion-button (click)="setOpen(true)" fill="clear" color="dark">
+  <ion-icon
+    [ngClass]="{
+      'conectado': user && !lastMin,
+      'conectado-last-min': user && lastMin,
+      'no-conectado' : !user
+    }"
+    slot="icon-only"
+    name="person"
+  ></ion-icon>
+</ion-button>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <!-- <ion-header>
+      <ion-toolbar>
+        <ion-title>Datos del usuario</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header> -->
+    <ion-card *ngIf="user">
+      <ion-card-header>
+        <ion-card-title>{{ user.name }}</ion-card-title>
+        <ion-card-subtitle>
+          <span> Perfil : {{ user.roleDescripcion }} </span>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid [fixed]="true">
+          <ion-row>
+            <ion-col>
+              <p>
+                <ion-button color="danger" (click)="desconectar()">
+                  <ion-icon slot="start" name="log-out"></ion-icon>
+                  Desconectar
+                </ion-button>
+              </p>
+
+              <p>
+                <ion-text color="warning"
+                  ><ion-icon name="warning"></ion-icon
+                ></ion-text>
+                Su sesión expira el
+                <ion-text color="danger">{{ user.SessionexpiredIn }}</ion-text>
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-modal>

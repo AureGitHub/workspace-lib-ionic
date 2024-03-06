@@ -1,0 +1,13 @@
+.menu-screen{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.inicio{
+    text-transform: uppercase;
+}
+.active{
+    border-bottom: solid 3px;
+}

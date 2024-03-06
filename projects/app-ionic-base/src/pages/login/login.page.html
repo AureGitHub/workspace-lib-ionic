@@ -1,0 +1,71 @@
+<ion-grid>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        
+        <ion-icon  *ngIf="!isSubmitted" style="font-size: 70px;"  name="home" [routerLink]="'/'" ></ion-icon>
+        <ion-icon  *ngIf="isSubmitted" style="font-size: 70px;"  name="lock-open-outline" ></ion-icon>
+  
+        <span *ngIf="isSubmitted" class="parpadeo">Comprobando usuario...</span>
+  
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <form  (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  
+          <ion-input
+          label="Email"
+          type="email"
+          formControlName="email"
+          label-placement="floating" 
+          fill="outline"
+          placeholder="">
+        </ion-input>
+        <span class="danger" >
+         
+        </span>
+        
+        <ion-text color="danger" *ngIf="isSubmitted && (email.errors?.['required'] || email.errors?.['email'])">email is required or not valid.</ion-text>
+        <br />
+        <ion-input
+          label="Password"
+          type="password"
+          labelPlacement="stacked"
+          formControlName="password"
+          label-placement="floating" fill="outline"
+          placeholder="">
+        </ion-input>
+        
+        <ion-text color="danger" *ngIf="isSubmitted && (password.errors?.['required'])">paswword is required</ion-text>
+         
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" color="danger" expand="block" [disabled]="isSubmitted || !loginForm.valid">Iniciar Sesión</ion-button>    
+            </ion-col>
+          </ion-row>
+        
+          <ion-row>
+            <ion-col>      
+              <a [routerLink]="['/forgot-password']" class="small-text" class="ion-float-left">¿Olvidaste tu contraseña?</a>
+            </ion-col>
+            <ion-col>      
+              <a [routerLink]="['/forgot-password']" class="small-text" class="ion-float-right">Registrate</a>
+            </ion-col>
+          </ion-row>
+        
+        </form>
+      </ion-col>
+    </ion-row>
+  
+  </ion-grid>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
