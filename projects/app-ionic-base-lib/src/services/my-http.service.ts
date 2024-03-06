@@ -8,6 +8,7 @@ import { typeMessage } from './enum.service';
 
 
 export class classHttp {
+    NoShowError: boolean;
     constructor(
         protocol: string,
         entity: string,
@@ -100,9 +101,9 @@ export class MyHttpService {
         }
         catch (error) {
 
-            this.utilService.message(typeMessage.danger,`Se ha producido un error accediendo al servidor (${error.url}) (${error?.error?.message}) `);
-
-            // alert(`${error.statusText}  ${error.error.message} (${error.url})`);
+            if(!o.NoShowError){
+                this.utilService.message(typeMessage.danger,`Se ha producido un error accediendo al servidor (${error.url}) (${error?.error?.message}) `);
+            }            
             return;
 
         }
@@ -155,7 +156,11 @@ export class MyHttpService {
     async getEntity(){
 
         const objHttp: classHttp = new classHttp('get', 'entities', null, null, null);
+        objHttp.NoShowError = true;
         this.entities = await this.ejecuteURL(objHttp);        
+        if(!this.entities){
+            // alert('eee');
+        }
         
       }
 

@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/workspace-lib",
+            "outputPath": "dist/workspace-lib-ionic",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -94,23 +94,23 @@
         }
       }
     },
-    "app-ionic-base": {
+    "app-ionic-base-lib": {
       "projectType": "library",
-      "root": "projects/app-ionic-base",
-      "sourceRoot": "projects/app-ionic-base/src",
+      "root": "projects/app-ionic-base-lib",
+      "sourceRoot": "projects/app-ionic-base-lib/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/app-ionic-base/ng-package.json"
+            "project": "projects/app-ionic-base-lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/app-ionic-base/tsconfig.lib.prod.json"
+              "tsConfig": "projects/app-ionic-base-lib/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/app-ionic-base/tsconfig.lib.json"
+              "tsConfig": "projects/app-ionic-base-lib/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -118,7 +118,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/app-ionic-base/tsconfig.spec.json",
+            "tsConfig": "projects/app-ionic-base-lib/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

@@ -7,4 +7,4 @@ Ofrece:
         ![alt text](image.png)
 
 
-        ng build app-ionic-base --watch
+        ng build app-ionic-base-lib --watch
