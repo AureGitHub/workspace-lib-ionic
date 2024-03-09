@@ -35,6 +35,10 @@ export class MyTableComponent implements OnInit {
   @Input() withCache = false;
 
 
+  @Input() pageSize: any;
+
+  
+
   // lista de datos
   rows = [];
 
@@ -91,8 +95,6 @@ export class MyTableComponent implements OnInit {
     @Inject('settings') private settings,
   ) {
 
-    this.pagination.pageSize = this.settings.table.pageSize;
-    this.pagination.limit = this.settings.table.pageSize;
 
 
   }
@@ -100,6 +102,9 @@ export class MyTableComponent implements OnInit {
 
   ngOnInit() {
     this.pagination.withCache = this.withCache;
+    this.pagination.pageSize = this.pageSize ?  this.pageSize : this.settings.table.pageSize;
+    this.pagination.limit = this.pageSize ?  this.pageSize : this.settings.table.pageSize;
+
     if(this.loadOnInit){
       this.ejecutaQuery();
     }
