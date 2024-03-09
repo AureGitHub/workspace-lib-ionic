@@ -35,6 +35,9 @@ export * from './pages/forgot-password/forgot-password.module';
 // export * from './pages/shared.page.modules';
 
 export * from './modules/shared.common.base.module'
+export * from './modules/myprimeng.module'
+export * from 'primeng/button';
+
 
 export * from '@ngx-translate/core'
 

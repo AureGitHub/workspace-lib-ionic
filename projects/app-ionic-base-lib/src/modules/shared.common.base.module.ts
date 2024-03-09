@@ -1,5 +1,4 @@
 import { LOCALE_ID, ModuleWithProviders, NgModule } from "@angular/core";
-import { MyHttpService } from "../services/my-http.service";
 import { SeguridadService } from "../services/seguridad.service";
 import { UtilService } from "../services/util.service";
 import { LocalStoragedService } from "../services/localStorage.service";
@@ -34,7 +33,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   exports:[
     HttpClientModule,
     SharedComponentsModule,
-    TranslateModule
+    TranslateModule,
   ]
 
 
