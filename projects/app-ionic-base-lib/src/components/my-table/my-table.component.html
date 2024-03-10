@@ -131,49 +131,62 @@
 
   <ion-row class="footer-row">
     <ion-col size="3" class="pagination-info">
-      <span>{{ rows.length }}/{{ this.pagination.count }} total</span>
-      <span>{{ numberPagination }} páginas</span>
+      <span>{{ rows.length }} de {{ this.pagination.count }} total</span>
+      <span>páginas : {{ numberPagination }}</span>
     </ion-col>
 
+    <ion-col>
+      <ion-badge>
+        <ion-icon *ngIf="pageActual > 1"  class="hand"  (click)="ejecutaPaginacion(1)"  name="play-skip-back-outline" ></ion-icon>
+    </ion-badge>
+  </ion-col>
     <ion-col
-      ><ion-icon
-        class="hand"
-        (click)="ejecutaPaginacion(1)"
-        name="play-skip-back-outline"
-      ></ion-icon
-    ></ion-col>
-    <ion-col
-      ><ion-icon
+      >
+      
+      <ion-badge>
+      <ion-icon *ngIf="pageActual > 1"
         name="chevron-back-outline"
         class="hand"
         (click)="pageActual > 1 && ejecutaPaginacion(pageActual - 1)"
       ></ion-icon
-    ></ion-col>
+    >
+  </ion-badge>
+  </ion-col>
 
     <ion-col
       *ngFor="let pag of lstPaginacion"
       class="number-pagination"
-      [class.page_actual]="pageActual === pag"
     >
-      <span class="hand" (click)="ejecutaPaginacion(pag)">{{ pag }}</span>
+    <ion-badge [color]="pageActual === pag ? 'secondary' : 'primary'">
+      <span [ngClass]="pageActual != pag ? 'hand' : '' "  (click)="pageActual != pag && ejecutaPaginacion(pag)">{{ pag }}</span>
+    </ion-badge>
     </ion-col>
 
     <ion-col
-      ><ion-icon
+      >
+      
+      <ion-badge>
+      <ion-icon *ngIf="pageActual !=  numberPagination"
         class="hand"
         (click)="
           pageActual < numberPagination && ejecutaPaginacion(pageActual + 1)
         "
         name="chevron-forward-outline"
       ></ion-icon
-    ></ion-col>
+    >
+  </ion-badge>
+  </ion-col>
     <ion-col class="pagination-end"
-      ><ion-icon
+      >
+    <ion-badge>
+      <ion-icon *ngIf="pageActual !=  numberPagination"
         class="hand"
         (click)="ejecutaPaginacion(numberPagination)"
         name="play-skip-forward-outline"
       ></ion-icon
-    ></ion-col>
+    >
+  </ion-badge>
+  </ion-col>
   </ion-row>
 </ion-grid>
 
