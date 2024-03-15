@@ -88,8 +88,15 @@
     >
 
     <ng-container *ngIf="!isLoading && col.type == 'action' && col?.canAction">
-      <ion-icon *ngIf="col['icon']" class="hand" name="{{col['icon']}}"  (click)="onAction(col?.action, row)" ></ion-icon>
-      <span class="hand" style="text-decoration: underline;font-weight: bold;" *ngIf="!col['icon']"  (click)="onAction(col?.action, row)">{{ row[col.prop] }}</span>
+      <ng-container *ngIf="eval(row,col?.condicion)">
+        <ion-icon *ngIf="col['icon']" class="hand" name="{{col['icon']}}"  (click)="onAction(col?.action, row)" ></ion-icon>      
+        <span class="hand" style="text-decoration: underline;font-weight: bold;" *ngIf="!col['icon']"  (click)="onAction(col?.action, row)">{{ row[col.prop] }}</span>
+      </ng-container>
+
+      <ng-container *ngIf="!eval(row,col?.condicion)">
+        {{ row[col.prop] }}
+      </ng-container>
+      
     </ng-container>
 
     <ng-container *ngIf="!isLoading && col.type == 'action' && !col?.canAction">
@@ -157,9 +164,8 @@
       *ngFor="let pag of lstPaginacion"
       class="number-pagination"
     >
-    <ion-badge [color]="pageActual === pag ? 'secondary' : 'primary'">
-      <span [ngClass]="pageActual != pag ? 'hand' : '' "  (click)="pageActual != pag && ejecutaPaginacion(pag)">{{ pag }}</span>
-    </ion-badge>
+   
+      <span [ngClass]="pageActual == pag ? 'pag-num-selected' : 'pag-num hand' "  (click)="pageActual != pag && ejecutaPaginacion(pag)">{{ pag }}</span>
     </ion-col>
 
     <ion-col

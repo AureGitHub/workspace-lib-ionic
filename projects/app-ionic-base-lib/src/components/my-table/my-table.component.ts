@@ -148,7 +148,8 @@ export class MyTableComponent implements OnInit {
 
 
 
-  eval(arg0: string): any {
+  eval(row: any, arg0: string): any {
+    if(!arg0) return true;
     return eval(arg0);
     }
 
