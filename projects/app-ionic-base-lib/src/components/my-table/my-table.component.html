@@ -138,26 +138,31 @@
 
   <ion-row class="footer-row">
     <ion-col size="3" class="pagination-info">
-      <span>{{ rows.length }} de {{ this.pagination.count }} total</span>
-      <span>páginas : {{ numberPagination }}</span>
+      
+        <span>{{ (this.pagination.offset * this.pagination.pageSize) + 1 }} a {{(this.pagination.offset * this.pagination.pageSize)  + rows.length }} de {{ this.pagination.count }}</span>
+      
+        <span>pág. : {{ numberPagination }}</span>
+      
+      
+      
     </ion-col>
 
-    <ion-col>
-      <ion-badge>
-        <ion-icon *ngIf="pageActual > 1"  class="hand"  (click)="ejecutaPaginacion(1)"  name="play-skip-back-outline" ></ion-icon>
-    </ion-badge>
+    <ion-col >
+        <ion-icon 
+          [ngClass]="pageActual > 1 ? 'hand' : '' "  
+          [ngStyle]="{'color': pageActual > 1 ? 'black' : 'gray' }"
+           (click)="pageActual > 1 && ejecutaPaginacion(1)"  name="play-skip-back-outline" ></ion-icon>
   </ion-col>
     <ion-col
       >
       
-      <ion-badge>
-      <ion-icon *ngIf="pageActual > 1"
-        name="chevron-back-outline"
-        class="hand"
+      <ion-icon  
+        [ngClass]="pageActual > 1 ? 'pag-num-selected hand' : 'pag-num ' "
+        [ngStyle]="{'color': pageActual > 1 ? 'black' : 'gray' }"
+        name="chevron-back-outline" 
         (click)="pageActual > 1 && ejecutaPaginacion(pageActual - 1)"
       ></ion-icon
     >
-  </ion-badge>
   </ion-col>
 
     <ion-col
@@ -171,27 +176,25 @@
     <ion-col
       >
       
-      <ion-badge>
-      <ion-icon *ngIf="pageActual !=  numberPagination"
-        class="hand"
+      <ion-icon 
+      [ngClass]="pageActual !=  numberPagination ? 'hand' : '' "  
+      [ngStyle]="{'color': pageActual !=  numberPagination ? 'black' : 'gray' }"
         (click)="
           pageActual < numberPagination && ejecutaPaginacion(pageActual + 1)
         "
         name="chevron-forward-outline"
       ></ion-icon
     >
-  </ion-badge>
   </ion-col>
     <ion-col class="pagination-end"
       >
-    <ion-badge>
-      <ion-icon *ngIf="pageActual !=  numberPagination"
-        class="hand"
-        (click)="ejecutaPaginacion(numberPagination)"
+      <ion-icon 
+      [ngClass]="pageActual !=  numberPagination ? 'hand' : '' "  
+      [ngStyle]="{'color': pageActual !=  numberPagination ? 'black' : 'gray' }"
+        (click)=" pageActual < numberPagination && ejecutaPaginacion(numberPagination)"
         name="play-skip-forward-outline"
       ></ion-icon
     >
-  </ion-badge>
   </ion-col>
   </ion-row>
 </ion-grid>
