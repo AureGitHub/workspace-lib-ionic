@@ -122,6 +122,12 @@
           <span (click)="onRowSelect(row)">{{ row[col.prop] | date: 'dd/MM/yy' }}</span>
         </ng-container>
 
+        <ng-container *ngSwitchCase="'datetime'">
+          <span (click)="onRowSelect(row)">{{ row[col.prop] | date: 'dd/MM/yy HH:mm' }}</span>
+        </ng-container>
+
+        
+
 
         <ng-container *ngSwitchCase="'boolean'">
           <ion-icon [ngClass]="{'hand' : col?.action }" name="checkbox" *ngIf="row[col.prop]"  (click)="col?.action ?  onAction(col?.action, row) : onRowSelect(row)"></ion-icon>         

@@ -68,6 +68,9 @@ export class MyTableComponent implements OnInit {
   }
 
   @Input() set refresh(value) {
+    this.pagination.withCache = this.withCache;
+    this.pagination.pageSize = this.pageSize ?  this.pageSize : this.settings.table.pageSize;
+    this.pagination.limit = this.pageSize ?  this.pageSize : this.settings.table.pageSize;
     if (value) {
       this.ejecutaQuery();
     }
