@@ -44,7 +44,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="iconUserVisible">
       <app-icon-user [user]="user" [lastMin]="lastMin"></app-icon-user>      
     </ion-buttons>
   </ion-toolbar>

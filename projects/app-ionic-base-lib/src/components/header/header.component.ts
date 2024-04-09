@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { SeguridadService } from '../../services/seguridad.service';
 import { UtilService } from '../../services/util.service';
@@ -17,6 +17,9 @@ export class HeaderComponent  implements OnInit {
   appDescripcion='';
   currentmenuItem: any;
   lastMin = false;
+
+  @Input() iconUserVisible = true;
+
 
   constructor(
     private seguridadService: SeguridadService,
