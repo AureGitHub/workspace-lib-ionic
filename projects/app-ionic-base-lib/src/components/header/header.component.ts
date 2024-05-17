@@ -46,7 +46,7 @@ export class HeaderComponent  implements OnInit {
     });
 
     this.utilService.subjectSetMenu.subscribe(obj=>{
-      this.menuItems = obj.menuItems;
+      this.menuItems = obj.menuItems.filter(a=> !a.hide);
       this.appDescripcion = this.utilService.appTitle;
       
 

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LocalStoragedService } from './localStorage.service';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 
 
@@ -27,6 +27,8 @@ export class SeguridadService {
     private router: Router,
     private alertController: AlertController,
     private toastController: ToastController,
+    private route:ActivatedRoute,
+
     @Inject('env') private environment,
 
 
@@ -179,7 +181,9 @@ export class SeguridadService {
     }
     else {
 
-      this.router.navigate([`/`]);
+      // var rr= this.route;
+
+      // this.router.navigate([`/`]);
 
     }
 

@@ -19,6 +19,8 @@ export class RolGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = this.seguridadService.UserGet();
 
+    //si pagina el login, no hacer nada
+
     if (!currentUser) {
       this._router.navigate(['/']);
       return false;
