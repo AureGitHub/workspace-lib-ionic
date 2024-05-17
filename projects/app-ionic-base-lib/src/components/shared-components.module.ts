@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { IconUserComponent } from './icon-user/icon-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { LstTableComponent } from './lst-table/lst-table.component';
 import { HeaderComponent } from './header/header.component';
 import { MyTableComponent } from './my-table/my-table.component';
 import { AppInitBaseComponent } from './app-init/app-init.component';
@@ -21,7 +20,6 @@ import { FilterColumsPipe } from './my-table/pipes/filter-colums.pipe';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     IconUserComponent, 
-    LstTableComponent,
     HeaderComponent,
     MyTableComponent,
     AppInitBaseComponent,
@@ -42,7 +40,6 @@ import { FilterColumsPipe } from './my-table/pipes/filter-colums.pipe';
   ],
   exports: [
     IconUserComponent, 
-    LstTableComponent,
     HeaderComponent,
     MyTableComponent,
     AppInitBaseComponent,

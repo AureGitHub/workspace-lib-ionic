@@ -42,6 +42,7 @@ export class EditorEntityComponent implements OnInit {
 
   pk = 'id';  // me lo tengo que currar para que la coga del entityDescripcion
   isOpenModal = false;
+  arrayFile: any[] = [];
 
   @Input() set entityRefresh(entityRefreh: any) {
 
@@ -299,6 +300,31 @@ export class EditorEntityComponent implements OnInit {
 
 
 
+  onFileChange(event,controlName) {
+
+    
+    //lo borro por si estaba
+    this.arrayFile=this.arrayFile.filter(a=>a.controlName!=controlName);
+
+
+    if (event.target.files.length > 0) {
+
+      this.arrayFile.push({controlName, file : event.target.files[0]});
+    }
+  }
+
+
+  onImagePicked(event: Event,controlName) {
+    const file = (event.target as HTMLInputElement).files[0]; // Here we use only the first file (single file)
+
+    let obj ={};
+    obj[controlName] = file;
+
+    this.formGroup.patchValue(obj);
+  }
+
+
+ 
 
   async onSubmit() {
 
@@ -312,10 +338,27 @@ export class EditorEntityComponent implements OnInit {
         }
       })
 
+      
+        // let formData: FormData;
+        // if(this.arrayFile.length>0){
+        //   formData= new FormData();
+
+        //   this.arrayFile.forEach(item => {
+        //     formData.append(item.controlName, item.file, item.file.name);
+        //   })
+
+        // }
+        
+        
+       
+      
+      
+
       this.isSaving = true;
       const protocol = this.isAlta ? 'post' : 'put';
       const param = this.isAlta ? null : this.entity[this.pk].toString();
-      const objHttp: classHttp = new classHttp(protocol, this.entityName, null, null, this.formGroup.value, param);
+      const formData = this.toFormData(this.formGroup.value);
+      const objHttp: classHttp = new classHttp(protocol, this.entityName, null, null, formData, param);
       const resp = await this.myHttpService.ejecuteURL(objHttp);
       this.isSaving = false;
       if (resp) { // verificar... no se si solo responde undefined cuando falla        
@@ -334,6 +377,18 @@ export class EditorEntityComponent implements OnInit {
 
   }
 
+
+  toFormData(formValue : any){
+    const formData = new FormData();
+    for ( const key of Object.keys(formValue) ) {
+      const value = formValue[key];
+      formData.append(key, value);
+    }
+
+    return formData;
+
+
+  }
 
   async borrar() {
 

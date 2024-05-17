@@ -52,6 +52,14 @@
                   ></ion-checkbox>
                 </ng-container>
 
+                <ng-container *ngSwitchCase="'bytea'">
+                  <!-- <input type="file" (change)="onFileChange($event, item['name'])"/> -->
+
+                  <input type="file" #filePicker (change)="onImagePicked($event, item['name'])">
+
+                    
+                </ng-container>
+
                 <ng-container *ngSwitchCase="'select'">
                   <ion-spinner
                     *ngIf="item['isLoading']"

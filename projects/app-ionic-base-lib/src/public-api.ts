@@ -16,7 +16,6 @@ export * from './guard/rol.guard'
 
 export * from './components/header/header.component';
 export * from './components/icon-user/icon-user.component';
-export * from './components/lst-table/lst-table.component';
 export * from './components/my-table/my-table.component';
 export * from './components/app-init/app-init.component';
 export * from './components/editor-entity/editor-entity.component';
