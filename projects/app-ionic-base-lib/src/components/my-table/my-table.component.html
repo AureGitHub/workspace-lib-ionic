@@ -20,6 +20,7 @@
         *ngIf="withEntity && canAddEntity"
         [entityName]="entityName"
         [setEntity]="rowSelected"
+        [entityInitialValues]="entityInitialValues"
         (saveEvent)="ejecutaQuery()"
         (deleteEvent)="ejecutaQuery()"
         (CancelEvent)="rowSelected = null"

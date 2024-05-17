@@ -39,6 +39,10 @@ export class EditorEntityComponent implements OnInit {
   @Output() CancelEvent = new EventEmitter<true>();
   @Output() selectEvent = new EventEmitter<any>();
 
+  // son los valores iniciales a la hora de crear una row.
+  // por ejemplo, los FK de tablas padres (seria el id de Categoría a la hora de crear una opción)
+  @Input()  entityInitialValues : any = null;
+
 
   pk = 'id';  // me lo tengo que currar para que la coga del entityDescripcion
   isOpenModal = false;
@@ -224,7 +228,14 @@ export class EditorEntityComponent implements OnInit {
         if (item.hasOwnProperty('default')) {
           this.formGroup.controls[item['name']].setValue(item['default']);
         };
-      })
+      });
+
+      if(this.entityInitialValues){
+        for (const property in this.entityInitialValues) {
+          this.formGroup.controls[property].setValue(this.entityInitialValues[property]);
+        }
+      }
+
     }
     else {
 

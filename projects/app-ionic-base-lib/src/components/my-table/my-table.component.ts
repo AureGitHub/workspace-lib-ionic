@@ -60,6 +60,10 @@ export class MyTableComponent implements OnInit {
 @Input()  canUpdateEntity=false;
 
 
+@Input()  entityInitialValues : any = null;
+
+
+
 
 
   @Input() set setRow(rows: any[]) {
