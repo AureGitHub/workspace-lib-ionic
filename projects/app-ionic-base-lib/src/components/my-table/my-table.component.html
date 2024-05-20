@@ -136,6 +136,13 @@
         </ng-container>
 
 
+
+        <ng-container *ngSwitchCase="'bytea'">
+          <my-file [fileName]="row[col.prop]" [id]="row['id']" [entityName]="entityName"></my-file>          
+        </ng-container>
+
+
+
         <ng-container *ngSwitchDefault>
           <span (click)="onRowSelect(row)">{{ row[col.prop] }}</span>
         </ng-container>

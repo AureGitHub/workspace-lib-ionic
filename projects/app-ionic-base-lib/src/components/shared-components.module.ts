@@ -14,6 +14,7 @@ import { ButtonGuardarComponent } from './buttons/guardar/button.guardar.compone
 import { ButtonCancelarComponent } from './buttons/cancelar/button.cancelar.component';
 import { ButtonBorrarComponent } from './buttons/borrar/button.borrar.component';
 import { FilterColumsPipe } from './my-table/pipes/filter-colums.pipe';
+import { MyFileComponent } from './my-file/my-file.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { FilterColumsPipe } from './my-table/pipes/filter-colums.pipe';
     ButtonGuardarComponent,
     ButtonCancelarComponent,
     ButtonBorrarComponent,
+    MyFileComponent,
     FilterColumsPipe
   ],
   imports: [
@@ -48,6 +50,7 @@ import { FilterColumsPipe } from './my-table/pipes/filter-colums.pipe';
     ButtonGuardarComponent,
     ButtonCancelarComponent,
     ButtonBorrarComponent,
+    MyFileComponent
   ],
   providers: [
   ],

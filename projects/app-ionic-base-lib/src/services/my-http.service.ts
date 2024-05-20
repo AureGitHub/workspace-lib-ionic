@@ -157,11 +157,12 @@ export class MyHttpService {
 
         const objHttp: classHttp = new classHttp('get', 'entities', null, null, null);
         objHttp.NoShowError = true;
-        this.entities = await this.ejecuteURL(objHttp);        
-        if(!this.entities){
-            // alert('eee');
+        this.entities = await this.ejecuteURL(objHttp);      
+        console.log(this.entities);
+
+        for (const property in this.entities) {
+            this.entities[property]= this.entities[property].filter(a=> !a['noedit'])
         }
-        
       }
 
 

@@ -23,6 +23,7 @@ export * from './components/cargando/cargando.component';
 export * from './components/buttons/guardar/button.guardar.component';
 export * from './components/buttons/cancelar/button.cancelar.component';
 export * from './components/buttons/borrar/button.borrar.component';
+export * from './components/my-file/my-file.component';
 
 export * from './components/shared-components.module';
 
