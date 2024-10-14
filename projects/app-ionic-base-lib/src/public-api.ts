@@ -24,6 +24,9 @@ export * from './components/buttons/guardar/button.guardar.component';
 export * from './components/buttons/cancelar/button.cancelar.component';
 export * from './components/buttons/borrar/button.borrar.component';
 export * from './components/my-file/my-file.component';
+export * from './components/my-img/my-img.component';
+export * from './components/my-camera/my-camera.component';
+
 
 export * from './components/shared-components.module';
 
@@ -35,13 +38,17 @@ export * from './pages/forgot-password/forgot-password.module';
 // export * from './pages/shared.page.modules';
 
 export * from './modules/shared.common.base.module'
+
 export * from './modules/myprimeng.module'
 export * from 'primeng/button';
 
 
 export * from '@ngx-translate/core'
+export * from 'ngx-webcam'
 
 
+export * from './components/menu-buttons/menu-buttons.component';
+export * from './components/menu-buttons/menu-buttons.module';
 
 
 

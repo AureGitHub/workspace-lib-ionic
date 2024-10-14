@@ -137,8 +137,8 @@
 
 
 
-        <ng-container *ngSwitchCase="'bytea'">
-          <my-file [fileName]="row[col.prop]" [id]="row['id']" [entityName]="entityName"></my-file>          
+        <ng-container *ngSwitchCase="'file'">
+          <my-file  [fileid]="row[col.fileid]" [filename]="row[col.filename]"></my-file>          
         </ng-container>
 
 

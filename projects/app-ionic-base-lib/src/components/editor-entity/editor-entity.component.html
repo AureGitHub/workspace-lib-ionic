@@ -55,9 +55,27 @@
                 <ng-container *ngSwitchCase="'bytea'">
                   <!-- <input type="file" (change)="onFileChange($event, item['name'])"/> -->
 
-                  <input type="file" #filePicker (change)="onImagePicked($event, item['name'])">
+                  <!-- <input type="file" #filePicker (change)="onImagePicked($event, item['name'])"> -->
 
-                    
+                  
+                  <div class="containerFile">
+                    <div class="fileName" (click)="uploader.click()"> {{this.fileName[item['desc']]}}</div>
+                    <div>
+                      <ion-icon  class="hand" name="search-outline" (click)="uploader.click()"></ion-icon>
+                      <input hidden #uploader type="file" id="myFile"  (change)="onImagePicked($event, item['name'], item['desc'])">
+                    </div>
+
+                    <div>
+                      <ion-icon  class="hand" color="danger" name="close-outline" (click)="borrarFile(item['name'], item['desc'])"></ion-icon>
+                     
+                    </div>
+
+                  </div>
+
+
+
+
+                 
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'select'">

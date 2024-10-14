@@ -1,2 +1,4 @@
-<ion-icon title="{{fileName}}" [ngClass]="{'hand' : true }" name="document-outline" *ngIf="fileName"  (click)="fileName ?  donwLoadFile() : null"></ion-icon> 
+<app-base-cargando *ngIf="isDownloading" [message]="''"></app-base-cargando>   
+<ion-icon  *ngIf="!isDownloading && filename" title="{{filename}}" [ngClass]="{'hand' : true }" name="document-outline"  (click)="fileid ?  donwLoadFile() : null"></ion-icon> 
 
+ 

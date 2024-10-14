@@ -47,6 +47,7 @@ export class EditorEntityComponent implements OnInit {
   pk = 'id';  // me lo tengo que currar para que la coga del entityDescripcion
   isOpenModal = false;
   arrayFile: any[] = [];
+  fileName={};
 
   @Input() set entityRefresh(entityRefreh: any) {
 
@@ -246,9 +247,13 @@ export class EditorEntityComponent implements OnInit {
       //set value from entity
 
       this.entityDescripcion.forEach(item => {
-        this.formGroup.controls[item['name']].setValue(
-          this.entity[item['name']]
-        );
+        this.formGroup.controls[item['name']].setValue(this.entity[item['name']]);
+
+        if(item.type == 'bytea'){
+          this.fileName[item['desc']]=this.entity[item['desc']];
+
+        }
+
       })
     }
   }
@@ -325,14 +330,29 @@ export class EditorEntityComponent implements OnInit {
   }
 
 
-  onImagePicked(event: Event,controlName) {
+  onImagePicked(event: Event,controlName : string, controlDesc : string) {
     const file = (event.target as HTMLInputElement).files[0]; // Here we use only the first file (single file)
 
     let obj ={};
     obj[controlName] = file;
 
     this.formGroup.patchValue(obj);
+    this.fileName[controlDesc]=file.name;
+
+    //0 indica que se ha modificado
+    this.entity[controlName]=0;    
+
   }
+
+
+  borrarFile(controlName : string, controlDesc : string){
+    let obj ={};
+    obj[controlName] = -1;
+    this.formGroup.patchValue(obj);
+    this.fileName[controlDesc]=''; 
+    //-1 indica que se ha borrado    
+  }
+
 
 
  
@@ -349,20 +369,6 @@ export class EditorEntityComponent implements OnInit {
         }
       })
 
-      
-        // let formData: FormData;
-        // if(this.arrayFile.length>0){
-        //   formData= new FormData();
-
-        //   this.arrayFile.forEach(item => {
-        //     formData.append(item.controlName, item.file, item.file.name);
-        //   })
-
-        // }
-        
-        
-       
-      
       
 
       this.isSaving = true;

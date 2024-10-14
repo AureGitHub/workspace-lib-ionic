@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SeguridadService } from '../../services/seguridad.service';
-import { UtilService } from '../../services/util.service';
+import { Component,  Input, OnInit } from '@angular/core';
 import { MyHttpService, classHttp } from '../../services/my-http.service';
 
 @Component({
@@ -13,10 +10,12 @@ export class MyFileComponent  implements OnInit {
 
 
 
-  @Input() fileName: string; 
-  @Input() id: string; 
-  @Input() entityName: string;
+  @Input() fileid: string; 
+  @Input() filename: string; 
 
+  isDownloading=false;
+
+  entityName = 'Documentos';
   
 
   constructor(
@@ -26,16 +25,37 @@ export class MyFileComponent  implements OnInit {
   ngOnInit() {}
 
   async donwLoadFile() {
-    const queryString= `id=${this.id}&fileName=${this.fileName}`;
-    const objHttp: classHttp = new classHttp('post', this.entityName, null, 'downloadFile', null, null,queryString);
-    const resp = await this.myHttpService.ejecuteURL(objHttp);        
-    const blob = new Blob([resp.content], { type: resp.contenttype });  
-    const url= window.URL.createObjectURL(blob);
-    
-  window.open(url);
+    try{
+      this.isDownloading = true;
+            
+      const objHttp: classHttp = new classHttp('get', this.entityName, null,'', null, this.fileid.toString());      
+      const resp = await this.myHttpService.ejecuteURL(objHttp);   
+      this.isDownloading = false;
+      if(resp){
+
+        const arr = new Uint8Array(resp.myData.split(',').map(z=> parseInt(z)));
+
+       const blob = new Blob([arr], { type: resp.contenttype });  
+        //  const blob = new Blob([arr], { type: 'application/octet-stream' });
 
 
 
+
+        var downloadURL = window.URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = this.filename;
+        link.click();
+
+      }
+      
     }
+    catch(ex){
+      this.isDownloading = false;
+      alert('no img');
+    }
+    
+    
+  }
 
 }

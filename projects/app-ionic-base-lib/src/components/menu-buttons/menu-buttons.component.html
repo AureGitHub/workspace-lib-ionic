@@ -1,0 +1,6 @@
+<div class="container">
+  <ion-button fill="outline" *ngFor="let item of menuItems"  [routerLink]="item.path">
+    <ion-icon slot="start" [name]="item.icon"></ion-icon>
+    {{item.title }}
+  </ion-button>
+</div>

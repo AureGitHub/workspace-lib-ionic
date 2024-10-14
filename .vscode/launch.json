@@ -3,6 +3,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Serve to the browser (Ionic Serve)",
+      "type": "cordova",
+      "request": "launch",
+      "target": "chrome",
+      "platform": "serve",
+      "devServerAddress": "localhost",
+      "sourceMaps": true,
+      "ionicLiveReload": true,
+      "cwd": "${workspaceFolder}"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",

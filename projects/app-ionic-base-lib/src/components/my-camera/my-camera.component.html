@@ -1,0 +1,28 @@
+
+<div class="actionBtn" (click)="isOpenModal=true" title="Take Picture">📸</div>
+<ion-modal [isOpen]="isOpenModal" (willDismiss)="cancelar()"> 
+  <ng-template>
+    <ion-content class="ion-padding">
+      <div (click)="triggerSnapshot()">
+        <webcam  [trigger]="triggerObservable" (imageCapture)="handleImage($event)" 
+                [allowCameraSwitch]="true" 
+                [videoOptions]="videoOptions"
+                [imageQuality]="1"
+                (initError)="handleInitError($event)"
+        ></webcam>
+        <br/>
+        <!-- DeviceId: <input id="deviceId" type="text" [(ngModel)]="deviceId" style="width: 500px"> -->
+      </div>
+      <ion-button  color="warning" expand="block"  (click)="cancelar()">Cerrar</ion-button>
+    
+    <h4 *ngIf="errors.length > 0">Messages:</h4>
+    <ul *ngFor="let error of errors">
+      <li>{{error | json}}</li>
+    </ul>
+    </ion-content>
+  </ng-template>
+  
+
+</ion-modal>
+
+

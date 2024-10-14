@@ -8,7 +8,8 @@ import { typeMessage } from './enum.service';
 
 
 export class classHttp {
-    NoShowError: boolean;
+    NoShowError: boolean;  
+    responseType: any;
     constructor(
         protocol: string,
         entity: string,
@@ -51,7 +52,7 @@ export class MyHttpService {
 
 
     constructor(
-        private http: HttpClient,
+        public http: HttpClient,
         private seguridadService: SeguridadService,
         private router: Router,    
         private utilService: UtilService,
@@ -81,7 +82,13 @@ export class MyHttpService {
             switch (protocol) {
                 case 'get':
                     const objPagFilterOrder = JSON.stringify(o.objPagFilterOrder);
-                    response = await this.http.get<any>(this.url,{ headers: { 'Authorization': `${auth_token}`, 'objPagFilterOrder' : `${objPagFilterOrder}` }, } ).toPromise();
+                    if(o.responseType){
+                    response = await this.http.get<any>(this.url,{ headers: {'responseType': o.responseType, 'Authorization': `${auth_token}`, 'objPagFilterOrder' : `${objPagFilterOrder}` }, } ).toPromise();
+                    }
+                    else{
+                        response = await this.http.get<any>(this.url,{ headers: { 'Authorization': `${auth_token}`, 'objPagFilterOrder' : `${objPagFilterOrder}` }, } ).toPromise();
+                    }
+                    
                     break;
 
                 case 'delete':
@@ -100,6 +107,13 @@ export class MyHttpService {
 
         }
         catch (error) {
+
+
+            if(error?.status == 409){
+                this.utilService.message(typeMessage.warning,`${error?.error?.message} `);
+                return;
+
+            }
 
             if(!o.NoShowError){
                 this.utilService.message(typeMessage.danger,`Se ha producido un error accediendo al servidor (${error.url}) (${error?.error?.message}) `);
@@ -132,6 +146,9 @@ export class MyHttpService {
         }
 
         //error 500 o de conflicto!!
+
+        console.log('response',response);
+
         if (response) {
             alert(`${response.message} (${response.status})`)
             return response.data;

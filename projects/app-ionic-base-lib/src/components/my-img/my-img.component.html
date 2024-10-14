@@ -1,0 +1,4 @@
+<app-base-cargando *ngIf="isDownloading" [message]="''"></app-base-cargando>   
+<img  *ngIf="!isDownloading" hideFocus="1" class="responsive"  tabIndex="0" tabStop="true" [src]="imgUrl"  />
+
+

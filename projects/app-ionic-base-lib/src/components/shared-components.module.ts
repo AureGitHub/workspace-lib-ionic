@@ -15,6 +15,9 @@ import { ButtonCancelarComponent } from './buttons/cancelar/button.cancelar.comp
 import { ButtonBorrarComponent } from './buttons/borrar/button.borrar.component';
 import { FilterColumsPipe } from './my-table/pipes/filter-colums.pipe';
 import { MyFileComponent } from './my-file/my-file.component';
+import { MyImgComponent } from './my-img/my-img.component';
+import { MyCameraComponent } from './my-camera/my-camera.component';
+import { WebcamModule } from 'ngx-webcam';
 
 
 @NgModule({
@@ -30,6 +33,8 @@ import { MyFileComponent } from './my-file/my-file.component';
     ButtonCancelarComponent,
     ButtonBorrarComponent,
     MyFileComponent,
+    MyImgComponent,
+    MyCameraComponent,
     FilterColumsPipe
   ],
   imports: [
@@ -39,6 +44,8 @@ import { MyFileComponent } from './my-file/my-file.component';
     ReactiveFormsModule,
     RouterModule,
     FormsModule ,
+    WebcamModule
+
   ],
   exports: [
     IconUserComponent, 
@@ -50,7 +57,9 @@ import { MyFileComponent } from './my-file/my-file.component';
     ButtonGuardarComponent,
     ButtonCancelarComponent,
     ButtonBorrarComponent,
-    MyFileComponent
+    MyFileComponent,
+    MyCameraComponent,
+    MyImgComponent
   ],
   providers: [
   ],
