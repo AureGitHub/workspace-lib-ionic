@@ -2,7 +2,11 @@
 
 
 
-<div class="containerFile">
+<div style="font-size: 10px;"  *ngIf="EsperandoGetValue">
+  <app-base-cargando  [message]="'Obteniendo información del fichero...'"></app-base-cargando>                  
+
+</div>
+<div class="containerFile" *ngIf="!EsperandoGetValue">
   <div  class="fileName" (click)="uploader.click()"> {{filename}}</div>
   <div>
     <ion-icon  class="hand" name="search-outline" (click)="uploader.click()"></ion-icon>

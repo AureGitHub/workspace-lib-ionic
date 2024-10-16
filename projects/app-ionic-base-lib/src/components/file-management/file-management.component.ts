@@ -18,6 +18,7 @@ export class FileManagementComponent  implements OnInit {
   filename: string;
   arrayFile: any[] = [];
   controlOfiginalId: string;
+  EsperandoGetValue: boolean;
   
 
 
@@ -54,6 +55,9 @@ export class FileManagementComponent  implements OnInit {
 
   async getValueDocumentFromServer() {
     try{
+
+      this.EsperandoGetValue = true;
+
       const protocol = 'get';
       const param = this.formGroup.controls[this.controlName].value.toString();    
       const objHttp: classHttp = new classHttp(protocol, 'Documentos', null, null, null, param);
@@ -62,6 +66,9 @@ export class FileManagementComponent  implements OnInit {
     }
     catch(err){
       throw new Error(`Se ha producido un erro obteniendo la información de la entidad (${err})`);      
+    }
+    finally{
+      this.EsperandoGetValue = false;
     }
   }
 
@@ -81,26 +88,18 @@ export class FileManagementComponent  implements OnInit {
 
     //si YA HABÍA un file
     if(this.formGroup.controls[this.controlOfiginalId]){
-      this.formGroup.controls[this.controlName].setValue(-2);
       this.formGroup.controls[this.controlOfiginalId].markAsTouched();
     }
-    else{
-      //alta de file. NO HABÍA
-      this.formGroup.controls[this.controlName].setValue(-1);
-    }
-    
-    
-    this.formGroup.controls[this.controlName].markAsTouched();
     this.formGroup.controls[controlNameFile].markAsTouched();
-    
-    const a='';
-
-  
   }
 
 
   borrarFile() {
-    this.formGroup.controls[this.controlName].setValue(-1);
+
+    if(this.formGroup.controls[this.controlOfiginalId]){
+      this.formGroup.controls[this.controlOfiginalId].markAsTouched();
+    }
+
     this.filename = '';
     //-1 indica que se ha borrado    
   }

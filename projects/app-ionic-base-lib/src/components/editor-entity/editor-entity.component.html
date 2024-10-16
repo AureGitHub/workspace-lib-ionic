@@ -59,7 +59,7 @@
                   ></ion-checkbox>
                 </ng-container>
 
-                <ng-container *ngSwitchCase="'bytea'">
+                <ng-container *ngSwitchCase="'file'">
                   <!-- <input type="file" (change)="onFileChange($event, item['name'])"/> -->
 
                   <!-- <input type="file" #filePicker (change)="onImagePicked($event, item['name'])"> -->
@@ -74,10 +74,11 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'select'">
-                  <ion-spinner
+                  <app-base-cargando *ngIf="item['isLoading']" [message]="'Generando el formulario...'"></app-base-cargando>                  
+                  <!-- <ion-spinner
                     *ngIf="item['isLoading']"
                     name="dots"
-                  ></ion-spinner>
+                  ></ion-spinner> -->
 
                   <ion-select
                     [disabled]="item['disabled']"
