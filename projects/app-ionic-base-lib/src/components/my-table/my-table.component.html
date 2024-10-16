@@ -19,7 +19,7 @@
       <app-editor-entity
         *ngIf="withEntity && canAddEntity"
         [entityName]="entityName"
-        [setEntity]="rowSelected"
+        [setEntity]="rowSelected?.id"
         [entityInitialValues]="entityInitialValues"
         (saveEvent)="ejecutaQuery()"
         (deleteEvent)="ejecutaQuery()"

@@ -1,0 +1,12 @@
+.containerFile {
+    display: flex; /* or inline-flex */
+    flex-direction: row;
+    padding: 5px;
+    width: 100%;
+  }
+.fileName{
+    font-size: 10px;
+    color: navy;
+    padding: 4px;
+    min-width: 50px;
+}

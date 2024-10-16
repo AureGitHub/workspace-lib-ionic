@@ -18,6 +18,7 @@ import { MyFileComponent } from './my-file/my-file.component';
 import { MyImgComponent } from './my-img/my-img.component';
 import { MyCameraComponent } from './my-camera/my-camera.component';
 import { WebcamModule } from 'ngx-webcam';
+import { FileManagementComponent } from './file-management/file-management.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { WebcamModule } from 'ngx-webcam';
     MyFileComponent,
     MyImgComponent,
     MyCameraComponent,
+    FileManagementComponent,
     FilterColumsPipe
   ],
   imports: [
@@ -59,6 +61,8 @@ import { WebcamModule } from 'ngx-webcam';
     ButtonBorrarComponent,
     MyFileComponent,
     MyCameraComponent,
+    FileManagementComponent,
+
     MyImgComponent
   ],
   providers: [

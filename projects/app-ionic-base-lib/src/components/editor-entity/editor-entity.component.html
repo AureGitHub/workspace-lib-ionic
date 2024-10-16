@@ -6,15 +6,22 @@
   color="primary"
   slot="icon-only"
   name="add-circle"
-  (click)="alta()"
+  (click)="management(0)"
 ></ion-icon>
 <ion-modal [isOpen]="isOpenModal" (willDismiss)="cancelar()">
   <ng-template>
+    <ion-content class="ion-padding" *ngIf="error">
+      
+      <p  style="color: red;" padding>{{error}}</p>
+    </ion-content>
     <ion-content class="ion-padding">
-      <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" *ngIf="isEditing">
-        <ion-list *ngIf="entityDescripcion">
+      <div *ngIf="!formGroupOK">
+        <app-base-cargando [message]="'Generando el formulario...'"></app-base-cargando>        
+      </div>
+      <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" *ngIf="formGroupOK">
+        <ion-list *ngIf="lstEntityDescripcion">
           <ion-item> </ion-item>
-          <ion-item *ngFor="let item of entityDescripcion">
+          <ion-item *ngFor="let item of lstEntityDescripcion">
             <ng-container *ngIf="!item['hide']">
               <ion-label position="stacked">{{ item["title"] }}</ion-label>
               <ng-container [ngSwitch]="item['type']">
@@ -48,7 +55,7 @@
                 <ng-container *ngSwitchCase="'checkbox'">
                   <ion-checkbox
                     [attr.disabled]="item['disabled'] ? '' : null"
-                    formControlName="{{ item['name'] }}"
+                    formControlName="{{ item['name'] }}"  
                   ></ion-checkbox>
                 </ng-container>
 
@@ -57,21 +64,9 @@
 
                   <!-- <input type="file" #filePicker (change)="onImagePicked($event, item['name'])"> -->
 
+                  <file-management [controlName]="item['name']" [setFormGroup]="formGroup"></file-management>
                   
-                  <div class="containerFile">
-                    <div class="fileName" (click)="uploader.click()"> {{this.fileName[item['desc']]}}</div>
-                    <div>
-                      <ion-icon  class="hand" name="search-outline" (click)="uploader.click()"></ion-icon>
-                      <input hidden #uploader type="file" id="myFile"  (change)="onImagePicked($event, item['name'], item['desc'])">
-                    </div>
-
-                    <div>
-                      <ion-icon  class="hand" color="danger" name="close-outline" (click)="borrarFile(item['name'], item['desc'])"></ion-icon>
-                     
-                    </div>
-
-                  </div>
-
+                  
 
 
 
