@@ -400,7 +400,7 @@ export class EditorEntityComponent implements OnInit {
 
             this.isDeleting = true;
             const protocol = 'delete';
-            const param = this.formGroup.controls[this.pk].toString();
+            const param = this.formGroup.controls[this.pk].value.toString();
             const objHttp: classHttp = new classHttp(protocol, this.entityName, null, '', null, param);
             const result = await this.myHttpService.ejecuteURL(objHttp);
 
