@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
     this.isSubmitted = true;
 
     const objHttp : classHttp = new classHttp(
-      'post','user',null, 'login',this.loginForm.value
+      'post','security',null, 'login',this.loginForm.value
 
     );
 
