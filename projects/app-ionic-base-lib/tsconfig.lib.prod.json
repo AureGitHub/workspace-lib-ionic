@@ -5,6 +5,12 @@
     "declarationMap": false
   },
   "angularCompilerOptions": {
-    "compilationMode": "partial"
+    "compilationMode": "partial",
+    "buildOptimizer": true,
+    "optimization": true,
+    "vendorChunk": true,
+    "extractLicenses": true,
+    "sourceMap": false,
+    "namedChunks": true
   }
 }

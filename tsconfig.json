@@ -4,7 +4,7 @@
   "compilerOptions": {
     "paths": {
       "app-ionic-base": [
-        "dist/app-ionic-base"
+        "dist/"
       ]
     },
     "baseUrl": "./",

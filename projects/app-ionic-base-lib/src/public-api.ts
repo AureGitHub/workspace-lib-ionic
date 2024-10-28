@@ -41,9 +41,6 @@ export * from './pages/forgot-password/forgot-password.module';
 
 export * from './modules/shared.common.base.module'
 
-export * from './modules/myprimeng.module'
-export * from 'primeng/button';
-
 
 export * from '@ngx-translate/core'
 export * from 'ngx-webcam'

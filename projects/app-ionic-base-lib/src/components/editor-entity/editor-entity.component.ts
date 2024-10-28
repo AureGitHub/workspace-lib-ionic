@@ -51,6 +51,7 @@ export class EditorEntityComponent implements OnInit {
   error = '';
   formGroupOK=false;
   anyTouched: boolean;
+  oldValue: {};
 
   @Input() set entityRefresh(entityRefreh: any) {
 
@@ -197,15 +198,22 @@ export class EditorEntityComponent implements OnInit {
 
   async management_update(id: number) {
     try {
+
+      this.oldValue = {};
+
       const entityUpdate = await this.getValueEnityFromServer(id);
        //añado el id al formGroup      
        this.formGroup.addControl('id', new FormControl(''));
        this.formGroup.controls['id'].setValue(entityUpdate['id']);
+       this.oldValue['id']=entityUpdate['id'];
+       
+
  
        //set value from entity
        for (const property in entityUpdate) {       
         if (this.formGroup.controls[property]) {
           this.formGroup.controls[property].setValue(entityUpdate[property]);
+          this.oldValue[property]=entityUpdate[property];
         }
       } 
       this.formGroupOK = true;
@@ -310,13 +318,6 @@ export class EditorEntityComponent implements OnInit {
 
 
 
-
- 
-
-
-
-
-
   async onSubmit() {
 
     try {
@@ -368,7 +369,7 @@ export class EditorEntityComponent implements OnInit {
     const formData = new FormData();
     this.anyTouched = false;
     Object.keys(this.formGroup.controls).forEach((controlName: string) => {      
-      if(this.formGroup.controls[controlName].touched){
+      if(this.formGroup.controls[controlName].touched && this.formGroup.controls[controlName].value!= this.oldValue[controlName]){
         formData.append(controlName, this.formGroup.controls[controlName].value);
         this.anyTouched=true;
       }
@@ -380,8 +381,6 @@ export class EditorEntityComponent implements OnInit {
   }
 
   async borrar() {
-
-
     const alert = await this.alertController.create({
       header: `Antención!! se va a borrar el elemento. ¿Continuar?`,
       buttons: [

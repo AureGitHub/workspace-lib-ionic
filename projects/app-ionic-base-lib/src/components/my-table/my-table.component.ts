@@ -145,11 +145,6 @@ export class MyTableComponent implements OnInit {
 
     })
 
-    // let obj = {};
-    // obj['enRojo']=eval('row[\'saldo\']<1');
-    // obj['enRojo1']=eval('row[\'saldo\']>1');
-
-    //return "{'enRojo': eval('row[\'saldo\']<1')}";
      return obj;
     }
 

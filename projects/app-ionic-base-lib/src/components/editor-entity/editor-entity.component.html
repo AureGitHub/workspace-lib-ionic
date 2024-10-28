@@ -60,26 +60,11 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'file'">
-                  <!-- <input type="file" (change)="onFileChange($event, item['name'])"/> -->
-
-                  <!-- <input type="file" #filePicker (change)="onImagePicked($event, item['name'])"> -->
-
                   <file-management [controlName]="item['name']" [setFormGroup]="formGroup"></file-management>
-                  
-                  
-
-
-
-                 
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'select'">
-                  <app-base-cargando *ngIf="item['isLoading']" [message]="'Generando el formulario...'"></app-base-cargando>                  
-                  <!-- <ion-spinner
-                    *ngIf="item['isLoading']"
-                    name="dots"
-                  ></ion-spinner> -->
-
+                  <app-base-cargando *ngIf="item['isLoading']" [message]="'Cargando...'"></app-base-cargando>                  
                   <ion-select
                     [disabled]="item['disabled']"
                     *ngIf="objlstSelect[item['name']] && !item['isLoading']"

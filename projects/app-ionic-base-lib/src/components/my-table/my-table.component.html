@@ -76,17 +76,9 @@
     </ion-col>
   </ion-row>
 
-  <ion-row     
-    *ngFor="let row of rows; let i = index"
-    [ngClass]="getNgClass(row, i)"
-    [style.font-weight]="rowSelected == row ? 'bold' : 'normal'"
-    
-  >
+  <ion-row *ngFor="let row of rows; let i = index" [ngClass]="getNgClass(row, i)" [style.font-weight]="rowSelected == row ? 'bold' : 'normal'">
 
-    <ion-col
-      *ngFor="let col of columns | filterColums : filterargs"
-      style="text-align: center; border: solid 1px"
-    >
+    <ion-col *ngFor="let col of columns | filterColums : filterargs" style="text-align: center; border: solid 1px">
 
     <ng-container *ngIf="!isLoading && col.type == 'action' && col?.canAction">
       <ng-container *ngIf="eval(row,col?.condicion)">
@@ -105,6 +97,7 @@
     </ng-container>
 
       <ng-container [ngSwitch]="col['type']" *ngIf="!isLoading && col.type != 'action'" >
+
         <ng-container *ngSwitchCase="'text'">
           <span (click)="onRowSelect(row)"
             style="text-align: left"
@@ -127,21 +120,14 @@
           <span (click)="onRowSelect(row)">{{ row[col.prop] | date: 'dd/MM/yy HH:mm' }}</span>
         </ng-container>
 
-        
-
-
         <ng-container *ngSwitchCase="'boolean'">
           <ion-icon [ngClass]="{'hand' : col?.action }" name="checkbox" *ngIf="row[col.prop]"  (click)="col?.action ?  onAction(col?.action, row) : onRowSelect(row)"></ion-icon>         
           <ion-icon [ngClass]="{'hand' : col?.action }" name="square-outline" *ngIf="!row[col.prop]"  (click)="col?.action ?  onAction(col?.action, row) : onRowSelect(row) "></ion-icon>
         </ng-container>
 
-
-
         <ng-container *ngSwitchCase="'file'">
           <my-file  [fileid]="row[col.fileid]" [filename]="row[col.filename]"></my-file>          
         </ng-container>
-
-
 
         <ng-container *ngSwitchDefault>
           <span (click)="onRowSelect(row)">{{ row[col.prop] }}</span>
