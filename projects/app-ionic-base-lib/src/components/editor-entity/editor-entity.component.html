@@ -9,12 +9,11 @@
   (click)="management(0)"
 ></ion-icon>
 <ion-modal [isOpen]="isOpenModal" (willDismiss)="cancelar()">
-  <ng-template>
-    <ion-content class="ion-padding" *ngIf="error">
-      
-      <p  style="color: red;" padding>{{error}}</p>
-    </ion-content>
+  <ng-template>    
     <ion-content class="ion-padding">
+      <div *ngIf="error">
+        <p  style="color: red;" padding>{{error}}</p>
+      </div>
       <div *ngIf="!formGroupOK">
         <app-base-cargando [message]="'Generando el formulario...'"></app-base-cargando>        
       </div>

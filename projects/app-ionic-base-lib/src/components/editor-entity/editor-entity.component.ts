@@ -369,7 +369,7 @@ export class EditorEntityComponent implements OnInit {
     const formData = new FormData();
     this.anyTouched = false;
     Object.keys(this.formGroup.controls).forEach((controlName: string) => {      
-      if(this.formGroup.controls[controlName].touched && this.formGroup.controls[controlName].value!= this.oldValue[controlName]){
+      if(this.isAlta || (this.formGroup.controls[controlName].touched && this.formGroup.controls[controlName].value!= this.oldValue[controlName])){
         formData.append(controlName, this.formGroup.controls[controlName].value);
         this.anyTouched=true;
       }
