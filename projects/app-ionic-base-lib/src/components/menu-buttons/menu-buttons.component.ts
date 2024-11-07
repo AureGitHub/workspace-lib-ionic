@@ -8,33 +8,7 @@ import { Role } from '../../services/enum.service';
 })
 export class MenuButtonsComponent  implements OnInit {
   
-  @Input() menuItems = [
-    {
-      title: 'Inmuebles',
-      icon: 'business-outline',
-      path: '/inmuebles/',
-      key: 'inmuebles',  // para encontar la ruta en los guard
-      roles: [Role.god, Role.admin]
-    },
- 
-    {
-     title: 'Agenda',
-     icon: 'calendar-outline',
-     path: '/agenda/',
-     key: 'agenda',  // para encontar la ruta en los guard
-     roles: [Role.god, Role.admin],
-     // hide : true
-   },
- 
-   {
-     title: 'Servicios',
-     icon: 'alarm-outline',
-     path: '/servicios/',
-     key: 'servicios',  // para encontar la ruta en los guard
-     roles: [Role.god, Role.admin],
-     // hide : true
-   },
-  ];
+  @Input() menuItems = [];
   
   constructor(
    
