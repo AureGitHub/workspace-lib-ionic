@@ -67,10 +67,7 @@ export class EditorEntityComponent implements OnInit {
 
   @Input() set setEntity(id: number) {
     if (!id) return;
-
     this.management(id);
-
-
   }
 
 
@@ -102,12 +99,18 @@ export class EditorEntityComponent implements OnInit {
             Obtiene los valores del SERVIDOR (GetById)
             Crea el formGroup a partir de estos valores
   */
-  async management(id: number) {
+  async management(id: number,  paramOptional : any = null) {
 
     this.formGroupOK = false;
     this.isOpenModal = true;
     this.isAlta = id == 0 ? true : false;
-    this.lstEntityDescripcion = this.myHttpService.entities[this.entityName];
+
+    this.entityName = paramOptional && paramOptional?.entityName ? paramOptional?.entityName : this.entityName;
+    this.entityInitialValues = paramOptional && paramOptional?.entityInitialValues ? paramOptional?.entityInitialValues : this.entityInitialValues;
+    
+
+    const keyEntity_ = this.entityName.replaceAll('/','.');
+    this.lstEntityDescripcion = this.myHttpService.entities[keyEntity_]; 
     if (!this.lstEntityDescripcion) {
       this.error = `No se han podido obtener los datos de la descripción (${this.entityName})`;
       return;
@@ -283,6 +286,8 @@ export class EditorEntityComponent implements OnInit {
         };
 
 
+
+
         const sourceColecction = item['noTC'] ? item['coleccion'] : 'types/' + item['coleccion'];
 
         const objHttp: classHttp = new classHttp('get', sourceColecction, objPagFilterOrder);
@@ -368,13 +373,31 @@ export class EditorEntityComponent implements OnInit {
   toFormData() {
     const formData = new FormData();
     this.anyTouched = false;
+    let lstControlNameInserted = [];
     Object.keys(this.formGroup.controls).forEach((controlName: string) => {      
       if(this.isAlta || (this.formGroup.controls[controlName].touched && this.formGroup.controls[controlName].value!= this.oldValue[controlName])){
         formData.append(controlName, this.formGroup.controls[controlName].value);
+        lstControlNameInserted.push(controlName);
         this.anyTouched=true;
       }
       
     });
+
+    //useAlways . Propiedades que siempre tienen que ir al servidor. Ej FK
+
+    if(this.anyTouched){
+      const lstEntityDescripcion_useAlways = this.lstEntityDescripcion.filter(a=> a?.useAlways);
+      
+    lstEntityDescripcion_useAlways.forEach(item => {
+      if(!lstControlNameInserted.some(a=> a == item.name)){
+        formData.append(item.name, this.formGroup.controls[item.name].value);
+      }
+    });
+    }
+    
+
+
+
 
     return formData;
 

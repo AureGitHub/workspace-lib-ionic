@@ -45,14 +45,13 @@ export * from './modules/shared.common.base.module'
 export * from '@ngx-translate/core'
 export * from 'ngx-webcam'
 
-
 export * from './components/menu-buttons/menu-buttons.component';
 export * from './components/menu-buttons/menu-buttons.module';
 
-
-
-
-
+export { TreeModule } from 'primeng/tree';
+export { TableModule } from 'primeng/table'; 
+// export { DragDropModule } from 'primeng/dragdrop';
+// export { PickListModule } from 'primeng/picklist';
 
 
 
