@@ -22,7 +22,7 @@ export class classHttp {
     ) {
 
         this.protocol = protocol;
-        this.entity = entity;
+        this.entity = entity.replace('public/','');
         this.objPagFilterOrder = objPagFilterOrder;
         this.method = method;
         this.param = param;
@@ -39,6 +39,32 @@ export class classHttp {
     form: any
 }
 
+@Injectable({
+    providedIn: 'root'
+})
+export class MyHttpService_EXEC {
+    constructor(
+        private myHttpService: MyHttpService
+    ) {
+    }
+
+     async Save(protocol: string, entityName : string,objData : any, pk : string) {       
+        
+        const param = protocol=='post' ? null : objData[pk].toString();
+            const formData = new FormData();
+            if( protocol!='delete'){
+                for(const pp in objData){
+                    formData.append(pp, objData[pp]);
+                }        
+            }            
+            const objHttp: classHttp = new classHttp(protocol, entityName, null, null, formData, param);
+            return this.myHttpService.ejecuteURL(objHttp);
+
+        
+        
+      }
+
+}
 
 
 @Injectable({
@@ -63,7 +89,6 @@ export class MyHttpService {
     ) {
 
     }
-
 
 
     async ejecuteURL(o: classHttp) {

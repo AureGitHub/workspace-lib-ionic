@@ -21,8 +21,8 @@
         [entityName]="entityName"
         [setEntity]="rowSelected?.id"
         [entityInitialValues]="entityInitialValues"
-        (saveEvent)="ejecutaQuery()"
-        (deleteEvent)="ejecutaQuery()"
+        (saveEvent)="saveEvent.emit($event);ejecutaQuery()"
+        (deleteEvent)="deleteEvent.emit($event); ejecutaQuery()" 
         (CancelEvent)="rowSelected = null"
       ></app-editor-entity>
     </ion-col>

@@ -27,7 +27,7 @@ export class EditorEntityComponent implements OnInit {
   lstEntityDescripcion: any;  // descripcion de la entidad (campos, tipos...)
 
   @Input() entityName: string;
-
+  @Input() MostrarIconAdd = true;
 
 
   //para guardar las listas de los select
@@ -109,7 +109,11 @@ export class EditorEntityComponent implements OnInit {
     this.entityInitialValues = paramOptional && paramOptional?.entityInitialValues ? paramOptional?.entityInitialValues : this.entityInitialValues;
     
 
-    const keyEntity_ = this.entityName.replaceAll('/','.');
+    const keyEntity_ = this.entityName.includes("public") ? `${this.entityName.split('/')[0]}."${this.entityName.split('/')[1]}"`  : this.entityName.replaceAll('/','.');
+
+    
+
+    console.log(this.myHttpService.entities);
     this.lstEntityDescripcion = this.myHttpService.entities[keyEntity_]; 
     if (!this.lstEntityDescripcion) {
       this.error = `No se han podido obtener los datos de la descripción (${this.entityName})`;
@@ -323,53 +327,6 @@ export class EditorEntityComponent implements OnInit {
 
 
 
-  async onSubmit() {
-
-    try {
-      this.lstEntityDescripcion.forEach(item => {
-        if (item['type'] == 'date' || item['type'] == 'datetime' || item['type'] == 'time') {
-          if (this.formGroup.controls[item['name']].dirty) {
-            let date = this.utilService.toISOString(new Date(this.formGroup.controls[item['name']].value));
-            this.formGroup.controls[item['name']].setValue(date)
-          }
-        }
-      })
-
-
-
-      this.isSaving = true;
-      const protocol = this.isAlta ? 'post' : 'put';
-      const param = this.isAlta ? null : this.formGroup.controls[this.pk].value.toString();
-      const formData = this.toFormData();
-
-      if(!this.anyTouched){
-        this.utilService.message(typeMessage.success, 'No se ha modificado ningún dato');
-        return;
-      }
-
-      const objHttp: classHttp = new classHttp(protocol, this.entityName, null, null, formData, param);
-      const resp = await this.myHttpService.ejecuteURL(objHttp);
-      this.isSaving = false;
-      if (resp) { // verificar... no se si solo responde undefined cuando falla        
-        this.isEditing = false;
-        this.isAlta = false;
-        this.isOpenModal = false;
-        this.saveEvent.emit(this.formGroup.value);
-      }
-
-
-    }
-    catch (err) {
-      this.error=`Se ha producido un error realizando la operación (${err})`
-    }
-    finally{
-      this.isSaving = false;
-    }
-
-
-  }
-
-
   toFormData() {
     const formData = new FormData();
     this.anyTouched = false;
@@ -394,14 +351,56 @@ export class EditorEntityComponent implements OnInit {
       }
     });
     }
-    
-
-
-
-
     return formData;
+  }
+
+
+  async onSubmit() {
+
+    try {
+      this.lstEntityDescripcion.forEach(item => {
+        if (item['type'] == 'date' || item['type'] == 'datetime' || item['type'] == 'time') {
+          if (this.formGroup.controls[item['name']].dirty) {
+            let date = this.utilService.toISOString(new Date(this.formGroup.controls[item['name']].value));
+            this.formGroup.controls[item['name']].setValue(date)
+          }
+        }
+      })
+
+      this.isSaving = true;
+      const protocol = this.isAlta ? 'post' : 'put';
+      const param = this.isAlta ? null : this.formGroup.controls[this.pk].value.toString();
+      const formData = this.toFormData();
+
+      if(!this.anyTouched){
+        this.utilService.message(typeMessage.success, 'No se ha modificado ningún dato');
+        return;
+      }
+
+      const objHttp: classHttp = new classHttp(protocol, this.entityName, null, null, formData, param);
+      const resp = await this.myHttpService.ejecuteURL(objHttp);
+      this.isSaving = false;
+      if (resp) { // verificar... no se si solo responde undefined cuando falla        
+        this.isEditing = false;
+        this.isAlta = false;
+        this.isOpenModal = false;
+        this.saveEvent.emit(resp?.entity);
+      }
+
+
+    }
+    catch (err) {
+      this.error=`Se ha producido un error realizando la operación (${err})`
+    }
+    finally{
+      this.isSaving = false;
+    }
+
 
   }
+
+
+
 
   async borrar() {
     const alert = await this.alertController.create({
@@ -424,13 +423,13 @@ export class EditorEntityComponent implements OnInit {
             const protocol = 'delete';
             const param = this.formGroup.controls[this.pk].value.toString();
             const objHttp: classHttp = new classHttp(protocol, this.entityName, null, '', null, param);
-            const result = await this.myHttpService.ejecuteURL(objHttp);
+            const resp = await this.myHttpService.ejecuteURL(objHttp);
 
             this.isDeleting = false;
-            if (result) {
+            if (resp) {
               this.isOpenModal = false;
               this.isEditing = false;
-              this.deleteEvent.emit(this.formGroup.value);
+              this.deleteEvent.emit(resp?.entity);
             }
 
 

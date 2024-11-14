@@ -12,6 +12,10 @@ import { identifierName } from '@angular/compiler';
 export class MyTableComponent implements OnInit {
 
 
+  @Output() saveEvent = new EventEmitter<any>();
+  @Output() deleteEvent = new EventEmitter<any>();
+  
+
   pagination = new Page();
 
   objPagFilterOrder: any;

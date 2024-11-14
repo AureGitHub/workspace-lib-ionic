@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MyHttpService, classHttp } from '../../services/my-http.service';
+import { MyHttpService, MyHttpService_EXEC, classHttp } from '../../services/my-http.service';
 import { SeguridadService } from '../../services/seguridad.service';
 
 
@@ -30,10 +30,15 @@ export class BasePage    {
   // usuario conectado
   user: any;
 
+  // pk general para todas las tablas
+  pk = 'id';
+
 
   constructor(
     public myHttpService: MyHttpService,
     public seguridadService: SeguridadService,
+    public myHttpService_EXEC: MyHttpService_EXEC,
+    
   ) {
    }
 
