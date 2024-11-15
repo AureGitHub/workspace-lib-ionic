@@ -6,7 +6,7 @@
 <ion-grid [fixed]="true">
   <ion-row class="title">
     <ion-col size="4" style="text-align: left">
-      <ion-icon
+      <ion-icon *ngIf="MostrarIconRefresh"
         name="refresh"
         color="success"
         style="font-size: 25px"
@@ -19,6 +19,7 @@
       <app-editor-entity
         *ngIf="withEntity && canAddEntity"
         [entityName]="entityName"
+        [MostrarIconAdd]="MostrarIconAdd"
         [setEntity]="rowSelected?.id"
         [entityInitialValues]="entityInitialValues"
         (saveEvent)="saveEvent.emit($event);ejecutaQuery()"
@@ -108,7 +109,7 @@
 
         <ng-container *ngSwitchCase="'number'">
           <div style="width: 100%; text-align: center" class="inline-block" (click)="onRowSelect(row)">
-            {{ row[col.prop] | number }}
+            {{ row[col.prop] | number : col.decimalNamber ? col.decimalNamber : ''   }}
           </div>
         </ng-container>
 

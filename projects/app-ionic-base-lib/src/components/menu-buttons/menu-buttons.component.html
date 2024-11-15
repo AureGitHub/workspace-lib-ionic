@@ -1,7 +1,7 @@
 <div class="container">
   <ion-button fill="outline" *ngFor="let item of menuItems"  [routerLink]="item.path">
     <ion-icon *ngIf="!item.remixicon" slot="start" [name]="item.icon"></ion-icon>
-    <i *ngIf="item.remixicon" style="font-size: 25px;" class="ri-bank-fill"></i>&nbsp;
+    <i *ngIf="item.remixicon" style="font-size: 25px;" class="{{item.remixicon}}"></i>&nbsp;
     {{item.title }}
   </ion-button>
 </div>

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Page } from '../../model/page';
 import { MyHttpService, classHttp } from '../../services/my-http.service';
-import { identifierName } from '@angular/compiler';
 
 
 @Component({
@@ -31,6 +30,9 @@ export class MyTableComponent implements OnInit {
   @Input() isLoading = false;
 
   @Input() entityName: string;
+  @Input() tableResult = 'data';
+  @Input() tableResultCount = 'count';
+  
   @Input() title = '';
   @Input() columns = [];
   // true muestra la gestión  para poder dar de alta una entidad (+) y al seleccionar una fila muestra su edición
@@ -66,6 +68,25 @@ export class MyTableComponent implements OnInit {
 
 @Input()  entityInitialValues : any = null;
 
+
+
+@Input() MostrarIconRefresh = true;
+MostrarIconAdd=true;
+  loadFromOut=false;
+
+
+@Input() set dataFromOut(value){
+  this.loadFromOut = true;
+  this.MostrarIconRefresh = false;
+  this.MostrarIconAdd = false;
+  this.withCache=true;
+
+  
+  if(value){
+    this.loadList('C',value);
+  }
+  
+}
 
 
 
@@ -116,7 +137,7 @@ export class MyTableComponent implements OnInit {
     this.pagination.pageSize = this.pageSize ?  this.pageSize : this.settings.table.pageSize;
     this.pagination.limit = this.pageSize ?  this.pageSize : this.settings.table.pageSize;
 
-    if(this.loadOnInit){
+    if(this.loadOnInit && !this.loadFromOut){
       this.ejecutaQuery();
     }
     
@@ -262,7 +283,7 @@ export class MyTableComponent implements OnInit {
 
   }
 
-  async loadList(mode: string) {
+  async loadList(mode: string, dataFromOut : any = null) {
 
 
     this.messageError='';
@@ -273,30 +294,41 @@ export class MyTableComponent implements OnInit {
 
       this.rows = [];
   
-      const objHttp: classHttp = new classHttp('get', this.entityName,this.objPagFilterOrder);
+      
       if (mode == 'C') {
-        const result = await this.myHttpService.ejecuteURL(objHttp);
+        let result = null;
+        if(this.loadFromOut){
+          result={};
+          result[this.tableResult] = dataFromOut;
+          result[this.tableResultCount] = dataFromOut.length;
+        }
+        else{
+          const objHttp: classHttp = new classHttp('get', this.entityName,this.objPagFilterOrder);
+          result = await this.myHttpService.ejecuteURL(objHttp);
+        }
+        
         if (this.withCache) {
-          this.rowCache = result.data;
+          this.rowCache = result[this.tableResult];
 
-          this.onLoadDataEmiter.emit(result.data);
+          this.onLoadDataEmiter.emit(result[this.tableResult]);
 
           this.rows = this.rowCache.slice((this.pagination.offset * this.pagination.pageSize),(this.pagination.offset * this.pagination.pageSize) + this.pagination.pageSize);
         }
         else {
-          this.rows = result.data;
+          this.rows = result[this.tableResult];
         }
         this.isLoading = false;
-        return result.count;
+        return result[this.tableResultCount];
       }
       else if (mode == 'P'){
         if(this.withCache){
           this.rows = this.rowCache.slice((this.pagination.offset * this.pagination.pageSize),(this.pagination.offset * this.pagination.pageSize) + this.pagination.pageSize);
-          console.log(this.rowCache);
+         
         }
         else{
+          const objHttp: classHttp = new classHttp('get', this.entityName,this.objPagFilterOrder);
           const result = await this.myHttpService.ejecuteURL(objHttp);
-          this.rows = result.data;
+          this.rows =  result[this.tableResult];
         }
         this.isLoading = false;
   
@@ -306,6 +338,8 @@ export class MyTableComponent implements OnInit {
       return -1;
     }
     catch(ex){
+      const e=ex;
+      console.log(ex);
       this.isLoading = false;
       this.messageError='Problemas en el servidor. No se ha podido cargar la información'
     }
@@ -354,7 +388,7 @@ export class MyTableComponent implements OnInit {
       this.rowSelected = row;
     }
 
-    this.selecting.emit(this.rowSelected);
+    this.selecting.emit(this.rowSelected); 
 
   }
 
