@@ -48,6 +48,9 @@ export * from 'ngx-webcam'
 export * from './components/menu-buttons/menu-buttons.component';
 export * from './components/menu-buttons/menu-buttons.module';
 
+export * from './components/calendar/index';
+
+
 export { TreeModule } from 'primeng/tree';
 export { TableModule } from 'primeng/table'; 
 // export { DragDropModule } from 'primeng/dragdrop';

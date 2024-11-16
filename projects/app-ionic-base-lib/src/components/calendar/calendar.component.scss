@@ -1,0 +1,90 @@
+.CabeceraDetalle {
+  border-style: solid;
+  display: flex;
+  font-size: 15px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  vertical-align: center;
+  background-color: navy;
+  color: whitesmoke;
+  border-radius: 3px;
+}
+
+
+.cabeceraNameDay {
+  background-color: #848484;
+}
+
+.cabeceraDay {
+  background-color: #F2F2F2;
+}
+
+
+
+
+.ColCabeceraIconNav {
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.CabeceraIconNav {
+
+  background-color: darkgray;
+}
+
+.cabecera {
+  border-style: solid;
+  border-width: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dias {
+  font-size: 14px;
+  font-weight: bold;
+  border-style: solid;
+  border-width: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  border-radius: 3px;
+  //  background-color:#E0E6F8 ;
+}
+
+
+
+.detalleDay {
+  font-size: 10px;
+}
+
+.diaActual {
+  font-weight: bold;
+  color: #0B3B0B;
+}
+
+
+.diasConEnventos {
+
+  color: black;
+  background-color: #6E6E6E;
+  color: white;
+}
+
+.Sub_Sup {
+  font-size: 8px;
+}
+
+.diasConEnventosSeleccionado {
+  background-color: #BDBDBD;
+  color: black;
+}
+
+.diasSinConEnventosSeleccionado {
+  background-color: #BDBDBD;
+  color: white;
+}

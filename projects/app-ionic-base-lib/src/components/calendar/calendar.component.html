@@ -1,0 +1,62 @@
+
+<!-- [ngClass]="{
+    'diasConEnventos': item?.TotalComidas + item?.TotalCenas  + item?.TotalEncargos > 0 &&  !(item?.fecha && item?.fecha.getTime() === dateSelected?.getTime()),
+    'diasConEnventosSeleccionado': item?.TotalComidas + item?.TotalCenas  + item?.TotalEncargos >0 && (item?.fecha && item?.fecha.getTime() === dateSelected?.getTime()),
+    'diasSinConEnventosSeleccionado': item?.TotalComidas + item?.TotalCenas ==0 && (item?.fecha && item?.fecha.getTime() === dateSelected?.getTime())
+}" -->
+  
+  <ion-grid>
+    <ion-row class="CabeceraDetalle" >
+      <ion-col size="1" class="CabeceraFilaDetalle"  > 
+        <span  (click)="SetToday()" style="font-size: 10px;background-color: green; ">{{TodayDesc}}</span></ion-col>
+      <ion-col size="1"   (click)="changeDate('sub','month')"><ion-icon  color="white" size="small"  name="caret-back"></ion-icon></ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col  size="1" (click)="changeDate('add','month')"><ion-icon  color="white" size="small"  name="caret-forward"></ion-icon></ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="4" >  
+        <ion-select interface="popover" value="{{currentMonth}}" placeholder="Mes" (ionChange)="selectChangedMonth($event)">            
+          <ion-select-option *ngFor="let month of months"  value="{{month?.id}}"  >{{month.cor}}</ion-select-option>          
+        </ion-select>
+      </ion-col>
+      
+  
+      <ion-col size="3">
+        <ion-select interface="popover" value="{{currentYear}}" placeholder="Año" (ionChange)="selectChangedYear($event)">            
+          <ion-select-option *ngFor="let year of Years"  value="{{year}}"  >{{year}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+  
+      <!-- <ion-col size="1"  (click)="changeDate('add','year')"><ion-icon color="white" size="large"  name="caret-forward"></ion-icon></ion-col> -->
+      
+    </ion-row>
+    <ion-row class="cabeceraNameDay">
+      <ion-col *ngFor="let day of days" class="cabecera">{{day.cor}}</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let week of lstDiasMesinWeek" class="cabeceraDay">
+      <ion-col  *ngFor="let item of week"  
+      class="dias" 
+      [ngClass]="{
+        'diasConEnventos': item?.fecha && item?.fecha.getTime() === dateSelected?.getTime(),
+        'diasConEnventosSeleccionado': item?.TotalComidas + item?.TotalCenas  + item?.TotalEncargos >0 && (item?.fecha && item?.fecha.getTime() === dateSelected?.getTime()),
+        'diasSinConEnventosSeleccionado': item?.TotalComidas + item?.TotalCenas ==0 && (item?.fecha && item?.fecha.getTime() === dateSelected?.getTime())
+    }"  
+      (click)="selectDay(item)">
+  
+      <ion-grid  style="width: 99%;padding:0;margin:0">
+        <ion-row>
+          <ion-col>{{item?.dia}} <sup><span *ngIf="item?.TotalEncargos>0" class="Sub_Sup">{{item?.TotalEncargos}}</span></sup> </ion-col>
+        </ion-row>
+        <ion-row class="Sub_Sup">
+          <ion-col *ngIf="item?.TotalComidas>0">{{item?.TotalComidas}}</ion-col>
+          <ion-col style="text-decoration: underline" *ngIf="item?.TotalCenas>0">{{item?.TotalCenas}}</ion-col>
+        </ion-row>      
+      </ion-grid>
+  
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+
+  
+  

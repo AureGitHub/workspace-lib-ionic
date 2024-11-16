@@ -1,5 +1,5 @@
 <ion-button (click)="setOpen(true)" fill="clear" color="dark">
-  <ion-icon
+  <ion-icon size="small"
     [ngClass]="{
       'conectado': user && !lastMin,
       'conectado-last-min': user && lastMin,
@@ -12,14 +12,6 @@
 
 <ion-modal [isOpen]="isModalOpen">
   <ng-template>
-    <!-- <ion-header>
-      <ion-toolbar>
-        <ion-title>Datos del usuario</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="setOpen(false)">Cerrar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header> -->
     <ion-card *ngIf="user">
       <ion-card-header>
         <ion-card-title>{{ user.name }}</ion-card-title>

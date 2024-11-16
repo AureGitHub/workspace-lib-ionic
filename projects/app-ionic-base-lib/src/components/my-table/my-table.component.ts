@@ -83,7 +83,7 @@ MostrarIconAdd=true;
 
   
   if(value){
-    this.loadList('C',value);
+    this.ejecutaQuery(value);
   }
   
 }
@@ -190,7 +190,7 @@ MostrarIconAdd=true;
       realiza consulta
       genera la paginación
   */
-  async ejecutaQuery() {
+  async ejecutaQuery(data : any = null) {
 
     this.pagination.offset = 0;
     this.pageActual = 1;
@@ -202,7 +202,7 @@ MostrarIconAdd=true;
     };
     
     this.rows = [];
-    const count = await this.loadList('C');
+    const count = await this.loadList('C', data);
 
     this.pagination.count = count;
     this.numberPagination = Math.trunc(this.pagination.count / this.pagination.limit);
@@ -309,9 +309,7 @@ MostrarIconAdd=true;
         
         if (this.withCache) {
           this.rowCache = result[this.tableResult];
-
           this.onLoadDataEmiter.emit(result[this.tableResult]);
-
           this.rows = this.rowCache.slice((this.pagination.offset * this.pagination.pageSize),(this.pagination.offset * this.pagination.pageSize) + this.pagination.pageSize);
         }
         else {
@@ -346,7 +344,6 @@ MostrarIconAdd=true;
 
   }
 
-
   formatRows(rows: any[]): any[] {
 
     if (!rows) { return [] };
@@ -368,18 +365,6 @@ MostrarIconAdd=true;
     if(!this.canUpdateEntity){
       return;
     }
-
-    // console.log('table , onRowSelect');
-    // const  entityDescripcion = this.myHttpService.entities[this.entityName];
-    // //const  entityDescripcion = await this.myHttpService.getEntity(this.entityName);
-    // if(!entityDescripcion) {
-    //   this.selecting.emit(row);
-    //   return; //si no hay enity, no se abre el editor
-    // }
-
-
-
-
 
     if (this.rowSelected == row) {
       this.rowSelected = null;

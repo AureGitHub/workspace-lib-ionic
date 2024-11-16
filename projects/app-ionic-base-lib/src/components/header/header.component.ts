@@ -57,10 +57,22 @@ export class HeaderComponent  implements OnInit {
     this.router.events.subscribe(event => 
            {
             if(event instanceof NavigationEnd){
-              if(this.menuItems){                
-                this.currentmenuItem = this.menuItems.find(a=> a.path == event.url + '/');
+              //simpre cargo el menú principal... solo currentmenuItem va a ser in item de ese menú
+              // si quiero hacer algo con los submenus, tendré que obtener los submenus!!!
+              if(this.menuItems){     
+                
+                if(event.url=="/"){
+                  this.currentmenuItem = null;
+                  return;
+                }
 
-                this.title.setTitle( `${this.appDescripcion} - ${this.currentmenuItem?.title ? this.currentmenuItem?.title : '' }` );
+                const currentActual = this.menuItems.find(a=> a.path == event.url + '/');
+                if(currentActual){
+                  this.currentmenuItem = currentActual;
+                  this.title.setTitle( `${this.appDescripcion} - ${this.currentmenuItem?.title ? this.currentmenuItem?.title : '' }` );
+                }
+                
+                
 
               }
               

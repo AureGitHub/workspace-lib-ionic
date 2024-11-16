@@ -1,11 +1,6 @@
-<!-- {{ columns | json }} -->
-
-<!-- [style.background-color]="i % 2 ? '#C8E5F8' : 'white'"
-[style.font-weight]="rowSelected == row ? 'bold' : 'normal'" -->
-
-<ion-grid [fixed]="true">
+<ion-grid [fixed]="true" style="width: 100%;">
   <ion-row class="title">
-    <ion-col size="4" style="text-align: left">
+    <ion-col size="2" style="text-align: left">
       <ion-icon *ngIf="MostrarIconRefresh"
         name="refresh"
         color="success"
@@ -14,8 +9,8 @@
         (click)="ejecutaQuery()"
       ></ion-icon>
     </ion-col>
-    <ion-col size="4"><span style="color: black;"> {{ title }}</span></ion-col>
-    <ion-col size="4" style="text-align: right">
+    <ion-col size="8"><span style="color: black;"> {{ title }}</span></ion-col>
+    <ion-col size="2" style="text-align: right">
       <app-editor-entity
         *ngIf="withEntity && canAddEntity"
         [entityName]="entityName"
@@ -79,7 +74,7 @@
 
   <ion-row *ngFor="let row of rows; let i = index" [ngClass]="getNgClass(row, i)" [style.font-weight]="rowSelected == row ? 'bold' : 'normal'">
 
-    <ion-col *ngFor="let col of columns | filterColums : filterargs" style="text-align: center; border: solid 1px">
+    <ion-col class="columndata" *ngFor="let col of columns | filterColums : filterargs" style="text-align: center; border: solid 1px">
 
     <ng-container *ngIf="!isLoading && col.type == 'action' && col?.canAction">
       <ng-container *ngIf="eval(row,col?.condicion)">
