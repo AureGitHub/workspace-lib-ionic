@@ -27,6 +27,8 @@ export * from './components/my-file/my-file.component';
 export * from './components/my-img/my-img.component';
 export * from './components/my-camera/my-camera.component';
 export * from './components/file-management/file-management.component';
+export * from './components/tc_tipo/tc_tipo.component';
+
 
 
 

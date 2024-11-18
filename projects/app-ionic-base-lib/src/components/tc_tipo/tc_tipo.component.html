@@ -1,0 +1,20 @@
+
+
+<ion-grid class="router-outlet">
+  <ion-row>
+    <ion-col>
+      <my-table
+      [loadOnInit]="true"
+        [canAddEntity] ="user.isAdmin"
+        [canUpdateEntity] ="user.isAdmin"
+        [title]="'Tipos Gastos'"
+        [entityName]="entityName"
+        [columns]="columns"
+        [refresh]="tableRefresh"
+        [withCache]="true"
+        (deleteEvent)="deleteEvent.emit($event)"
+        (saveEvent)="saveEvent.emit($event)"
+      ></my-table>
+    </ion-col>
+  </ion-row>
+</ion-grid>

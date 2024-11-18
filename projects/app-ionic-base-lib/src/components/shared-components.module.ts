@@ -19,6 +19,7 @@ import { MyImgComponent } from './my-img/my-img.component';
 import { MyCameraComponent } from './my-camera/my-camera.component';
 import { WebcamModule } from 'ngx-webcam';
 import { FileManagementComponent } from './file-management/file-management.component';
+import { Tc_tipoComponent } from './tc_tipo/tc_tipo.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { FileManagementComponent } from './file-management/file-management.compo
     MyImgComponent,
     MyCameraComponent,
     FileManagementComponent,
-    FilterColumsPipe
+    Tc_tipoComponent,
+    FilterColumsPipe,
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,7 @@ import { FileManagementComponent } from './file-management/file-management.compo
     MyFileComponent,
     MyCameraComponent,
     FileManagementComponent,
-
+    Tc_tipoComponent,
     MyImgComponent
   ],
   providers: [

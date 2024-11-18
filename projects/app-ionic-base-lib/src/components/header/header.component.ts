@@ -66,7 +66,11 @@ export class HeaderComponent  implements OnInit {
                   return;
                 }
 
-                const currentActual = this.menuItems.find(a=> a.path == event.url + '/');
+                let currentActual = this.menuItems.find(a=> a.path == event.url + '/');
+                if(!currentActual){
+                  //intento buscarlo en la raiz... lo que sería el menú princioal                  
+                  currentActual = this.menuItems.find(a=> a.path == '/' + event.url.split('/')[1]+ '/');
+                }
                 if(currentActual){
                   this.currentmenuItem = currentActual;
                   this.title.setTitle( `${this.appDescripcion} - ${this.currentmenuItem?.title ? this.currentmenuItem?.title : '' }` );

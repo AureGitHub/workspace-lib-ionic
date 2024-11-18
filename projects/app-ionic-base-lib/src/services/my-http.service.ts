@@ -16,7 +16,7 @@ export class classHttp {
         objPagFilterOrder: any,
         method: string = null,
         form: any = null,
-        param: string = null,
+        param: any = null,
         query: string = null
 
     ) {
@@ -91,6 +91,23 @@ export class MyHttpService {
     }
 
 
+    getUrlParam(param){
+        if(!param) return '';
+        if(typeof param === 'object' && param !== null){
+            //es un object
+            let sal = '';
+            for(const pp in param){
+                sal+='/' + param[pp];
+            }
+            return sal;
+
+        }
+        else{
+            return  '/' + param;
+        }
+
+    }
+
     async ejecuteURL(o: classHttp) {
         const auth_token = this.seguridadService.UserGet() ? this.seguridadService.UserGet().token : '';
         // o.app = o.method == 'login' ? 'general' : this.app  ;  // puedo hacer que en la url esté la app...o no (si está vacio no irá enla) 
@@ -98,7 +115,9 @@ export class MyHttpService {
 
 
         const { protocol } = o;
-        this.url = `${this.environment.server}api/${this.app ? this.app + '/' : ''}${o.entity}${o.method ? '/' + o.method : ''}${o.param ? '/' + o.param : ''}${o.query ? '/?' + o.query : ''}`;
+
+        this.url = `${this.environment.server}api/${this.app ? this.app + '/' : ''}${o.entity}${o.method ? '/' + o.method : ''}${this.getUrlParam(o.param)}${o.query ? '/?' + o.query : ''}`;
+        const uurl = this.url;
 
         let response = null;
 
