@@ -47,7 +47,6 @@ import { Tc_tipoComponent } from './tc_tipo/tc_tipo.component';
     FormsModule,    
     ReactiveFormsModule,
     RouterModule,
-    FormsModule ,
     WebcamModule
 
   ],

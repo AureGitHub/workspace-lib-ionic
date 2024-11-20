@@ -8,7 +8,9 @@
     <ion-menu-toggle *ngFor="let item of menuItems" >
       <ion-item button [routerLink]="item.path" routerDirection="root" 
         routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}">
-        <ion-icon [name]="item.icon" slot="start"></ion-icon>
+        <ion-icon *ngIf="!item.remixicon" [name]="item.icon" slot="start"></ion-icon>
+        <div *ngIf="item.remixicon" style="padding-right: 25px;"><i  style="font-size: 25px;" class="{{item.remixicon}}"></i></div>
+          
         <span [ngClass]="{'active': item == currentmenuItem}">{{ item.title }}</span>
       </ion-item>
     </ion-menu-toggle>
@@ -26,7 +28,7 @@
             <a  class="inicio"  [routerLink]="'/'" title="Inicio" >{{appDescripcion}}</a>&nbsp;
             <span *ngIf="currentmenuItem">              
                 <ion-icon *ngIf="!currentmenuItem.remixicon" slot="start" [name]="currentmenuItem.icon" [routerLink]="currentmenuItem.path"></ion-icon>
-                <i *ngIf="currentmenuItem.remixicon" style="font-size: 25px;" class="{{currentmenuItem.remixicon}}" [routerLink]="currentmenuItem.path"></i>              
+               <i *ngIf="currentmenuItem.remixicon" style="font-size: 25px;" class="{{currentmenuItem.remixicon}}" [routerLink]="currentmenuItem.path"></i>              
             </span> 
           </ion-col>
           <ion-col size="12" class="hidden-in-mobile" >    

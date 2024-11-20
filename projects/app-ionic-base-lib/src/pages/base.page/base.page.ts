@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MyHttpService, MyHttpService_EXEC, classHttp } from '../../services/my-http.service';
 import { SeguridadService } from '../../services/seguridad.service';
+import { BasePageService } from './base.page.service';
 
 
 @Component({  
@@ -33,18 +34,19 @@ export class BasePage    {
   // pk general para todas las tablas
   pk = 'id';
 
-
+  myHttpService = this.basePageService.myHttpService;
+  seguridadService = this.basePageService.seguridadService;
+  myHttpService_EXEC = this.basePageService.myHttpService_EXEC;
+  utilService = this.basePageService.utilService;
+  alertController = this.basePageService.alertController;
   constructor(
-    public myHttpService: MyHttpService,
-    public seguridadService: SeguridadService,
-    public myHttpService_EXEC: MyHttpService_EXEC,
-    
+    public basePageService: BasePageService
   ) {
    }
 
    // Obtiene el usuario
    async Init() {
-   this.user = this.seguridadService.UserGet();
+   this.user = this.seguridadService.UserGet();   
    }
 
 

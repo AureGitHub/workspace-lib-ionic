@@ -13,6 +13,9 @@ export class ButtonGuardarComponent  implements OnInit {
   @Input() label='Guardar';  
   @Input() icon='save';  
 
+  @Input() expand='expand';  
+  
+
   constructor(
    
   ) { }

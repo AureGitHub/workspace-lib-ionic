@@ -37,7 +37,8 @@ export * from './components/shared-components.module';
 
 export * from './pages/login/login.module';
 export * from './pages/NotFound/not-found.module';
-export * from './pages/base.page/base.page';
+export * from './pages/base.page/index';
+
 export * from './pages/forgot-password/forgot-password.module';
 // export * from './pages/shared.page.modules';
 

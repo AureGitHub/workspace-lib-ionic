@@ -390,7 +390,9 @@ export class EditorEntityComponent implements OnInit {
 
     }
     catch (err) {
-      this.error=`Se ha producido un error realizando la operación (${err})`
+      this.error=`Se ha producido un error realizando la operación (${err})`;
+      this.isEditing = false;
+
     }
     finally{
       this.isSaving = false;
