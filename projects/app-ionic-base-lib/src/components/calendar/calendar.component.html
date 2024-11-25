@@ -5,7 +5,7 @@
     'diasSinConEnventosSeleccionado': item?.TotalComidas + item?.TotalCenas ==0 && (item?.fecha && item?.fecha.getTime() === dateSelected?.getTime())
 }" -->
   
-  <ion-grid>
+  <ion-grid [ngClass]="{'disabled' : disabled}">
     <ion-row class="CabeceraDetalle" >
       <ion-col size="1" class="CabeceraFilaDetalle"  > 
         <span  (click)="SetToday()" style="font-size: 10px;background-color: green; ">{{TodayDesc}}</span></ion-col>
@@ -34,12 +34,8 @@
     </ion-row>
     <ion-row *ngFor="let week of lstDiasMesinWeek" class="cabeceraDay">
       <ion-col  *ngFor="let item of week"  
-      class="dias" 
-      [ngClass]="{
-        'diasConEnventos': item?.fecha && item?.fecha.getTime() === dateSelected?.getTime(),
-        'diasConEnventosSeleccionado': item?.TotalComidas + item?.TotalCenas  + item?.TotalEncargos >0 && (item?.fecha && item?.fecha.getTime() === dateSelected?.getTime()),
-        'diasSinConEnventosSeleccionado': item?.TotalComidas + item?.TotalCenas ==0 && (item?.fecha && item?.fecha.getTime() === dateSelected?.getTime())
-    }"  
+      class="dias"
+      [style.background-color]=" item?.bkcolor"       
       (click)="selectDay(item)">
   
       <ion-grid  style="width: 99%;padding:0;margin:0">

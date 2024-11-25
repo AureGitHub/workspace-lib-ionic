@@ -25,11 +25,16 @@ export class CalendarComponent implements OnInit {
   
 
   @Input()  lan : string;
+  @Input()  disabled =false;
+
+  
   TodayDesc: any;
+  lstEventos: any;
 
   @Input() set eventSource(value) {
 
-    this.setEventosInCalendar(value);
+    this.lstEventos = value;
+    this.setEventosInCalendar();
   }
 
   // Fecha seleccionada
@@ -99,7 +104,7 @@ export class CalendarComponent implements OnInit {
 
     this.dateSelected = null;
 
-    this.refreshSelectedDate.emit(this.dateSelected);
+    // this.refreshSelectedDate.emit(this.dateSelected);
     
       this.refreshEnvents.emit(this.dateParaMontarCalendar);
       this.getDiasMes();
@@ -122,47 +127,91 @@ export class CalendarComponent implements OnInit {
   }
 
 
-  setEventosInCalendar(value: any) {
-    if(value){
-      this.lstDiasMesinWeek.forEach(week=>{
+  getDayFromCalendarFormated(eventofecha : any){
 
-        week.forEach(day => {
+    const fecha = new Date(eventofecha);
+
+
+    for(let i=0; i<this.lstDiasMesinWeek.length; i++){
+      const week = this.lstDiasMesinWeek[i];
+      const dayFinded =  week.find(a=> a?.fecha && a.fecha.getTime() == fecha.getTime());
+      if(dayFinded){
+        return dayFinded;
+      }
+    }
+
+
+    return null;
+
+  }
+
+
+  setEventosInCalendar() {
+
+    if(!this.lstEventos) return;
+
+   
+
+    this.lstEventos.forEach(evento => {
+
+      //encuentro el día del evento
+      let dia = this.getDayFromCalendarFormated(evento.fecha);
+      if(dia){
+        dia.bkcolor = evento?.bkcolor;
+      }
+      
+    });
+
+
+
+    // if(value){
+    //   this.lstDiasMesinWeek.forEach(week=>{
+
+    //     week.forEach(day => {
+
+    //       day.bkcolor = value?.bkcolor;
+
+    //       if(day.fecha){
+    //         day.bkcolor = value[0].bkcolor;
+    //         const evento = value.find(a=> a.fecha.getTime() == day.fecha );
+    //       }
+
               
-          if(day.fecha){
-            day.TotalComidas = value.filter(a=> a.servicio=='comida').filter(a=> {      
-              if(a.fecha.getTime() === day.fecha.getTime()){        
-                return true;      
-              }      
-              return false;
+    //       if(day.fecha){
+    //         day.TotalComidas = value.filter(a=> {      
+    //           if(a.fecha.getTime() === day.fecha.getTime()){        
+    //             return true;      
+    //           }      
+    //           return false;
       
-            }).length;
+    //         }).length;
 
 
-            day.TotalCenas = value.filter(a=> a.servicio=='cena').filter(a=> {      
-              if(a.fecha.getTime() === day.fecha.getTime()){        
-                return true;      
-              }      
-              return false;
+    //         day.TotalCenas = value.filter(a=> a.servicio=='cena').filter(a=> {      
+    //           if(a.fecha.getTime() === day.fecha.getTime()){        
+    //             return true;      
+    //           }      
+    //           return false;
       
-            }).length;
+    //         }).length;
 
 
-            day.TotalEncargos = value.filter(a=> a.servicio=='encargo').filter(a=> {      
-              if(a.fecha.getTime() === day.fecha.getTime()){        
-                return true;      
-              }      
-              return false;
+    //         day.TotalEncargos = value.filter(a=> a.servicio=='encargo').filter(a=> {      
+    //           if(a.fecha.getTime() === day.fecha.getTime()){        
+    //             return true;      
+    //           }      
+    //           return false;
       
-            }).length;
+    //         }).length;
 
 
-          }
+    //       }
           
 
-        })
+    //     })
 
-      })
-    }
+    //   })
+    // }
   }
 
   Setyears() {
@@ -249,8 +298,6 @@ export class CalendarComponent implements OnInit {
     let diasMes =new Date(anno,month,0).getDate();
 
     var indicePrimerDia =  new Date(anno, month - 1, 1).getDay();
-
-
     switch(this.lan){
       case 'EN':
         for(var indice=1; indice <=indicePrimerDia; indice++){
@@ -276,19 +323,12 @@ export class CalendarComponent implements OnInit {
       break;
     }
 
-
-    
-
-
     for (var dia = 1; dia <= diasMes; dia++) {
       // Ojo, hay que restarle 1 para obtener el mes correcto
 
       var fecha = new Date(anno, month - 1, dia);
       var indice = fecha.getDay();
-
       var TotalEnventos = 0;
-
-
       // indice 0 ==> Domingo
       lstDiasMes.push({fecha,dia, indice, TotalEnventos});
     }
@@ -310,11 +350,15 @@ export class CalendarComponent implements OnInit {
       this.lstDiasMesinWeek.push(lstWeek);
     }
 
+    this.setEventosInCalendar();
+
   }
-  
 
 
   selectDay(item){
+
+    if(!item?.fecha) return null;
+
     this.dateSelected = item && item.fecha ? item.fecha : this.dateSelected;
     this.refreshSelectedDate.emit(this.dateSelected);
     this.getDateSelected.emit(this.dateSelected);
