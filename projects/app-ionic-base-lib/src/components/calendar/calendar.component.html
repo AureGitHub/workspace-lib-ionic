@@ -40,12 +40,14 @@
   
       <ion-grid  style="width: 99%;padding:0;margin:0">
         <ion-row>
-          <ion-col>{{item?.dia}} <sup><span *ngIf="item?.TotalEncargos>0" class="Sub_Sup">{{item?.TotalEncargos}}</span></sup> </ion-col>
+          <ion-col class="col-8">{{item?.dia}}</ion-col>
+          <ion-col class="col-4">
+            <div class="flex_row">
+                <div *ngFor="let color of item['eventos']"  [style.color]="color">*</div>
+            </div>
+          </ion-col>
         </ion-row>
-        <ion-row class="Sub_Sup">
-          <ion-col *ngIf="item?.TotalComidas>0">{{item?.TotalComidas}}</ion-col>
-          <ion-col style="text-decoration: underline" *ngIf="item?.TotalCenas>0">{{item?.TotalCenas}}</ion-col>
-        </ion-row>      
+       
       </ion-grid>
   
         

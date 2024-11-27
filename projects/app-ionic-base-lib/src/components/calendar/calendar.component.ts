@@ -129,7 +129,10 @@ export class CalendarComponent implements OnInit {
 
   getDayFromCalendarFormated(eventofecha : any){
 
-    const fecha = new Date(eventofecha);
+    const anno = Number(eventofecha.split('-')[0]);
+    const month = Number(eventofecha.split('-')[1])-1;
+    const day = Number(eventofecha.split('-')[2]);
+    const fecha = new Date(anno,month,day);
 
 
     for(let i=0; i<this.lstDiasMesinWeek.length; i++){
@@ -157,7 +160,18 @@ export class CalendarComponent implements OnInit {
       //encuentro el día del evento
       let dia = this.getDayFromCalendarFormated(evento.fecha);
       if(dia){
-        dia.bkcolor = evento?.bkcolor;
+
+        dia.esturno = dia.esturno || evento?.esturno;
+
+        if(evento?.esturno){
+          dia.bkcolor =  evento?.bkcolor;
+        }
+        else{
+          if(!dia?.eventos){
+            dia.eventos = [];
+          }
+          dia.eventos.push(evento?.color);
+        }
       }
       
     });

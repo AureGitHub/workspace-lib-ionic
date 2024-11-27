@@ -93,3 +93,19 @@
   opacity:.6;
   pointer-events: none;
 }
+
+.flex_column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center-align-items{
+  align-items: center;
+}
+
+
+.flex_row{
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+}
