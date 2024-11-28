@@ -127,6 +127,18 @@ export class CalendarComponent implements OnInit {
   }
 
 
+  inicializaDias(){
+    for(let i=0; i<this.lstDiasMesinWeek.length; i++){
+      for(let j=0; j<this.lstDiasMesinWeek[i].length; j++){
+        if(this.lstDiasMesinWeek[i][j]?.fecha){
+          this.lstDiasMesinWeek[i][j].eventos = [];
+        }
+      }
+    }
+
+    
+  }
+
   getDayFromCalendarFormated(eventofecha : any){
 
     const anno = Number(eventofecha.split('-')[0]);
@@ -153,7 +165,7 @@ export class CalendarComponent implements OnInit {
 
     if(!this.lstEventos) return;
 
-   
+    this.inicializaDias();
 
     this.lstEventos.forEach(evento => {
 

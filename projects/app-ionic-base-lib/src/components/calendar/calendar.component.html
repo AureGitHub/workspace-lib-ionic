@@ -37,17 +37,22 @@
       class="dias"
       [style.background-color]=" item?.bkcolor"       
       (click)="selectDay(item)">
-  
+      <div class="eventoabsolute">
+        <span class="evento"  *ngFor="let color of item['eventos']"  [style.color]="color">*</span>
+      </div>
       <ion-grid  style="width: 99%;padding:0;margin:0">
         <ion-row>
-          <ion-col class="col-8">{{item?.dia}}</ion-col>
-          <ion-col class="col-4">
-            <div class="flex_row">
-                <div *ngFor="let color of item['eventos']"  [style.color]="color">*</div>
+          <ion-col class="col-12">
+            <div class="flex_column">
+              <span [ngClass]="{'diaHoy': item?.fecha && today.getTime() ==item?.fecha.getTime()} " >{{item?.dia}}</span>
+
+             
+              
+                
+            
             </div>
           </ion-col>
         </ion-row>
-       
       </ion-grid>
   
         
