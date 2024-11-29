@@ -1,5 +1,5 @@
 <div class="container">
-  <ion-button fill="outline" *ngFor="let item of menuItems"  [routerLink]="item.path" (click)="establecerTitle(item)">
+  <ion-button fill="outline" *ngFor="let item of menuItemsFilter"  [routerLink]="item.path" (click)="establecerTitle(item)">
     <ion-icon *ngIf="!item.remixicon" slot="start" [name]="item.icon"></ion-icon>
     <i *ngIf="item.remixicon" style="font-size: 25px;" class="{{item.remixicon}}"></i>&nbsp;
     {{item.title }}

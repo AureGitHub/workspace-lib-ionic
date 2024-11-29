@@ -19,6 +19,23 @@ export class RolGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = this.seguridadService.UserGet();
 
+    const menuItems = next.data['menuItems'];
+
+    if(!menuItems){
+      throw new Error(`
+        Guard.. Menu no enviado  (${next.routeConfig.path})
+        routes.forEach(route => {
+          route.data = { menuItems } 
+        })
+        `)
+    }
+
+    const ItemActual =menuItems.find(a=> a.key == next.routeConfig.path); 
+
+    if(!ItemActual.roles || ItemActual.roles.length == 0 ){
+      return true;  // NO EXIGE ningun rol
+    }
+  
     //si pagina el login, no hacer nada
 
     if (!currentUser) {
@@ -32,11 +49,9 @@ export class RolGuard implements CanActivate {
     }
 
 
-    const ItemActual =this.settings.menuItems.find(a=> a.key == next.routeConfig.path); 
+   
 
-    if(!ItemActual.roles || ItemActual.roles.length == 0 ){
-      return true;  // NO EXIGE ningun rol
-    }
+  
     return ItemActual.roles.some(a=> a == currentUser.roleid);
   }
 

@@ -16,7 +16,7 @@ export class EditorEntityComponent implements OnInit {
 
 
 
-  WhoHasPermision = [Role.admin, Role.god]
+  @Input() WhoHasPermision = [Role.admin, Role.god]
   havePermision = false;
 
   formGroup: FormGroup;
@@ -83,7 +83,7 @@ export class EditorEntityComponent implements OnInit {
 
   ngOnInit() {
     const user = this.seguridadService.UserGet();
-    this.havePermision = this.WhoHasPermision.some(a => a == user.roleid);
+    this.havePermision = this.WhoHasPermision.length==0 || this.WhoHasPermision.some(a => a == user.roleid);
   }
 
 

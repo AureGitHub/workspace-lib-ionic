@@ -33,14 +33,23 @@ export class UtilService {
   }
 
 
-  MenuRefresh() {
-      
+  filterMenuByUser(menu: any){
     const user = this.seguridadService.UserGet();
-    const menuItems = !user ? [] : this.settings.menuItems.filter(a => 
+
+    const menuItems = menu.filter(a => 
       !a.roles ||
+      ( user && (
       user.roleid == Role.god ||  
       a.roles.length == 0 || 
-      a.roles.some(b => b == user.roleid));
+      a.roles.some(b => b == user.roleid))));
+
+      return menuItems;
+
+  }
+
+
+  MenuRefresh() {          
+    const menuItems = this.filterMenuByUser(this.settings.menuItems);
     const obj = {menuItems : menuItems}
     this.subjectSetMenu.next(obj);      
     return menuItems;
