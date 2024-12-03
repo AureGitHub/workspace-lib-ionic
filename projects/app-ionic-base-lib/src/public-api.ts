@@ -53,6 +53,7 @@ export * from './components/menu-buttons/menu-buttons.module';
 
 export * from './components/calendar/index';
 export * from './components/icon-remixicon/index';
+export * from './components/label-value/index';
 
 export { TreeModule } from 'primeng/tree';
 export { TableModule } from 'primeng/table'; 
